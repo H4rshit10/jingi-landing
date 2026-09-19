@@ -1,0 +1,22 @@
+# backups produced while editing the single-file page
+*.bak
+
+# tooling
+node_modules/
+package-lock.json
+
+# OS / editor
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
+.vscode/
+.idea/
+
+# local scratch
+_c.js
+_tmp_*.js
+
+# internal client strategy document — contains a security audit of a live
+# third-party site. Deliberately not published.
+JINGI-Brand-Digital-Strategy-Guide.html
