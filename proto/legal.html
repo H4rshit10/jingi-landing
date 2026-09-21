@@ -7,11 +7,33 @@
 <meta name="description" content="How JINGI Corporate Solutions handles the information you share, and the terms on which this website is offered.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+JP:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23F7F3EA'/><circle cx='16' cy='15' r='8' fill='%23E41826'/><rect x='4' y='23' width='24' height='1.6' fill='%2386611F'/></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700&family=Mukta:wght@400;500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site.css">
 <link rel="stylesheet" href="assets/site-v2.css">
+<link rel="stylesheet" href="assets/site-v3.css">
+<script>
+/* A page reached from inside the site starts covered, so the curtain that
+   rose on the way out can lift here. Never under reduced motion. */
+(function(){try{
+  var q=window.matchMedia('(prefers-reduced-motion: reduce)');
+  if(q&&q.matches){sessionStorage.removeItem('jingi-transit');return;}
+  if(sessionStorage.getItem('jingi-transit')){
+    document.documentElement.classList.add('entering');
+    sessionStorage.removeItem('jingi-transit');
+  }
+}catch(e){}})();
+</script>
 </head>
 <body>
+
+<div class="curtain" id="curtain" aria-hidden="true">
+  <div class="curtain-in">
+    <span class="curtain-sun"></span>
+    <p class="curtain-word"><span class="cl"><span>J</span></span><span class="cl"><span>I</span></span><span class="cl"><span>N</span></span><span class="cl"><span>G</span></span><span class="cl"><span>I</span></span></p>
+    <p class="curtain-note">Corporate Solutions</p>
+  </div>
+</div>
 
 <header class="site-head" id="top">
   <div class="wrap bar">
@@ -189,6 +211,13 @@
       <span><a href="legal.html#privacy">Privacy</a> &nbsp;·&nbsp; <a href="legal.html#terms">Terms</a></span>
       <span>Design: Void Craft &amp; zxevo_dot</span>
     </div>
+  </div>
+
+  <!-- the name rises over a horizon, and the sun rises with it -->
+  <div class="foot-mark" aria-hidden="true">
+    <span class="foot-sun" id="foot-sun"></span>
+    <p class="foot-word" id="foot-word"><span class="fl"><span>J</span></span><span class="fl"><span>I</span></span><span class="fl"><span>N</span></span><span class="fl"><span>G</span></span><span class="fl"><span>I</span></span></p>
+    <span class="foot-horizon" id="foot-horizon"></span>
   </div>
 </footer>
 

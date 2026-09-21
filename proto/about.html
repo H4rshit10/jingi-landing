@@ -7,11 +7,33 @@
 <meta name="description" content="Who answers when your head office calls: a Japanese representative director and Indian specialists in law, people and accounts, working as one office in Gurugram.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+JP:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23F7F3EA'/><circle cx='16' cy='15' r='8' fill='%23E41826'/><rect x='4' y='23' width='24' height='1.6' fill='%2386611F'/></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700&family=Mukta:wght@400;500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site.css">
 <link rel="stylesheet" href="assets/site-v2.css">
+<link rel="stylesheet" href="assets/site-v3.css">
+<script>
+/* A page reached from inside the site starts covered, so the curtain that
+   rose on the way out can lift here. Never under reduced motion. */
+(function(){try{
+  var q=window.matchMedia('(prefers-reduced-motion: reduce)');
+  if(q&&q.matches){sessionStorage.removeItem('jingi-transit');return;}
+  if(sessionStorage.getItem('jingi-transit')){
+    document.documentElement.classList.add('entering');
+    sessionStorage.removeItem('jingi-transit');
+  }
+}catch(e){}})();
+</script>
 </head>
 <body>
+
+<div class="curtain" id="curtain" aria-hidden="true">
+  <div class="curtain-in">
+    <span class="curtain-sun"></span>
+    <p class="curtain-word"><span class="cl"><span>J</span></span><span class="cl"><span>I</span></span><span class="cl"><span>N</span></span><span class="cl"><span>G</span></span><span class="cl"><span>I</span></span></p>
+    <p class="curtain-note">Corporate Solutions</p>
+  </div>
+</div>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <filter id="duo" color-interpolation-filters="sRGB">
@@ -93,8 +115,8 @@
       </div>
       <div class="rv">
         <blockquote>
-          <p>When a Japanese company looks at India, the opportunity is not the difficult part. The distance is: in language, in custom, in what a Tuesday afternoon actually looks like at the tax office.</p>
-          <p>We founded JINGI to close that distance with people rather than advice. Our promise is plain. We speak your language, we do the work ourselves in India, and we are still here in the years after the company is formed.</p>
+          <p class="fill-t">When a Japanese company looks at India, the opportunity is not the difficult part. The distance is: in language, in custom, in what a Tuesday afternoon actually looks like at the tax office.</p>
+          <p class="fill-t">We founded JINGI to close that distance with people rather than advice. Our promise is plain. We speak your language, we do the work ourselves in India, and we are still here in the years after the company is formed.</p>
         </blockquote>
         <div class="sig">
           <b>Hisako Sugawara</b>
@@ -140,7 +162,7 @@
     <div class="wrap where">
       <div class="rv">
         <p class="k"><b>05</b> Where</p>
-        <h2 id="where-h" style="margin-top:14px">Based in Gurugram, close to the manufacturing corridors where Japanese companies in north India operate.</h2>
+        <h2 id="where-h" class="fill-t" style="margin-top:14px">Based in Gurugram, close to the manufacturing corridors where Japanese companies in north India operate.</h2>
         <a class="tlink" href="contact.html" style="margin-top:28px">Address, hours and directions <svg class="arr" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 8h11M9 4l4 4-4 4"/></svg></a>
       </div>
       <div class="frame">
@@ -188,6 +210,13 @@
       <span><a href="legal.html#privacy">Privacy</a> &nbsp;·&nbsp; <a href="legal.html#terms">Terms</a></span>
       <span>Design: Void Craft &amp; zxevo_dot</span>
     </div>
+  </div>
+
+  <!-- the name rises over a horizon, and the sun rises with it -->
+  <div class="foot-mark" aria-hidden="true">
+    <span class="foot-sun" id="foot-sun"></span>
+    <p class="foot-word" id="foot-word"><span class="fl"><span>J</span></span><span class="fl"><span>I</span></span><span class="fl"><span>N</span></span><span class="fl"><span>G</span></span><span class="fl"><span>I</span></span></p>
+    <span class="foot-horizon" id="foot-horizon"></span>
   </div>
 </footer>
 

@@ -32,7 +32,7 @@
 @media (max-width:520px){.frame .ann{font-size:10px}.frame .ann i{width:26px}}
 
 /* ---------- home hero, navy ---------- */
-.hero2{background:var(--navy);color:var(--on-navy);margin-top:-76px;padding-top:calc(76px + clamp(40px,6vw,88px));padding-bottom:clamp(48px,6vw,88px);position:relative;overflow:hidden}
+.hero2{background:var(--navy);color:var(--on-navy);margin-top:calc(var(--head-h) * -1);padding-top:calc(var(--head-h) + clamp(40px,6vw,88px));padding-bottom:clamp(48px,6vw,88px);position:relative;overflow:hidden}
 .hero2 .grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:var(--sp-5) var(--sp-5);align-items:end}
 .hero2 .k{color:var(--on-navy-muted);margin-bottom:22px}
 .hero2 .k b{color:var(--brass-2)}
@@ -66,7 +66,7 @@
 
 /* ---------- reasons with a sticky photograph ---------- */
 .reasons2{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:var(--sp-4) var(--sp-5);align-items:start}
-.reasons2 .frame{aspect-ratio:4/5;position:sticky;top:100px}
+.reasons2 .frame{aspect-ratio:4/5;position:sticky;top:calc(var(--head-h) + 24px)}
 .reasons2 .frame img{object-position:50% 40%}
 .reasons2 .reasons{grid-template-columns:1fr;border-top:0;margin-top:-28px}
 @media (max-width:900px){
@@ -101,7 +101,7 @@
 .consult .arc{margin-bottom:34px;max-width:520px}
 
 /* ---------- inner page heroes, navy ---------- */
-.page-hero.navy{background:var(--navy);color:var(--on-navy);margin-top:-76px;padding-top:calc(76px + clamp(36px,5vw,72px));padding-bottom:clamp(44px,5vw,72px);border-bottom:0;position:relative}
+.page-hero.navy{background:var(--navy);color:var(--on-navy);margin-top:calc(var(--head-h) * -1);padding-top:calc(var(--head-h) + clamp(36px,5vw,72px));padding-bottom:clamp(44px,5vw,72px);border-bottom:0;position:relative}
 .page-hero.navy::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--line-navy)}
 .page-hero.navy .crumbs{color:var(--on-navy-muted)}
 .page-hero.navy .crumbs a:hover{color:var(--on-navy)}
@@ -139,7 +139,4 @@
 .where .frame{aspect-ratio:16/10}
 @media (max-width:900px){.where{grid-template-columns:1fr}}
 
-/* ---------- page-exit curtain (created by script only) ---------- */
-.curtain{position:fixed;inset:0;background:var(--navy);z-index:100;pointer-events:none;visibility:hidden}
-.curtain.go{visibility:visible}
-.curtain::before{content:"";position:absolute;left:0;right:0;top:0;height:1px;background:var(--brass-2);opacity:.6}
+/* the page-transition curtain now lives in site-v3.css, with the sun in it */

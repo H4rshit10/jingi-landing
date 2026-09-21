@@ -1,0 +1,164 @@
+/* JINGI prototype — v3 layer: the brand system applied.
+   Loaded after site.css and site-v2.css.
+
+   Sources: the Brand & Digital Strategy Guide (colour s.05, type s.06,
+   motion s.09, logo s.04) and the void_craft reference for the reading-light
+   text reveal and the page-transition curtain.
+
+   Motion contract, unchanged from v2: nothing here hides content. Start
+   states that would hide something are set by the script, so a blocked
+   script or prefers-reduced-motion leaves the page whole. The one exception
+   is the entrance curtain, which lifts itself with a CSS animation so it can
+   never strand a visitor behind it if the script fails. */
+
+/* ═══ header ═══════════════════════════════════════════════════════════ */
+
+.site-head{border-bottom:1px solid transparent}
+/* Transparent is right only while the header sits inside a hero's top padding.
+   Once the page is moving, navy content scrolls underneath it and the two
+   collide, so it takes a night-coloured backdrop instead of none. */
+.site-head.scrolled.on-navy:not(.open){
+  background:rgba(17,27,56,.9);
+  -webkit-backdrop-filter:blur(10px) saturate(1.1);
+  backdrop-filter:blur(10px) saturate(1.1);
+  border-bottom-color:var(--line-navy)}
+.logo{gap:clamp(12px,1.4vw,18px)}
+.logo .word{font-size:13px;letter-spacing:.005em}
+.logo .word b{font-weight:600;letter-spacing:.01em}
+
+/* brass is the accent; the ink underline was competing with the wordmark */
+.nav a::after{background:var(--brass)}
+.nav a[aria-current="page"]{font-weight:600}
+.nav .cta{border-color:var(--action);color:var(--action);font-weight:600;
+  letter-spacing:.02em;padding:10px 18px;
+  transition:background var(--dur-base) var(--ease-ma),color var(--dur-base) var(--ease-ma)}
+.nav .cta:hover{background:var(--action);color:var(--paper);border-color:var(--action)}
+.site-head.on-navy:not(.open) .nav a::after{background:var(--brass-2)}
+
+/* the language control is honest about being unavailable rather than dead */
+.lang .off{cursor:not-allowed;opacity:.62}
+.lang .off:hover{opacity:.85}
+
+/* the burger becomes a cross, on the same rhythm as everything else */
+.menu-btn svg{transition:opacity var(--dur-quick) var(--ease-ma)}
+.menu-btn::after{content:"";position:absolute;width:15px;height:15px;opacity:0;
+  background:
+    linear-gradient(currentColor,currentColor) center/100% 1.5px no-repeat,
+    linear-gradient(currentColor,currentColor) center/1.5px 100% no-repeat;
+  transform:rotate(0deg);
+  transition:opacity var(--dur-quick) var(--ease-ma),transform var(--dur-base) var(--ease-ma)}
+.menu-btn{position:relative}
+.site-head.open .menu-btn svg{opacity:0}
+.site-head.open .menu-btn::after{opacity:1;transform:rotate(45deg)}
+body.nav-open{overflow:hidden}
+
+/* ═══ the horizon, drawn before each section title ═════════════════════
+   The flat base of the logo's sun, reused as a rule. Visible by default;
+   the script sets scaleX(0) and draws it. (guide s.04, s.09) */
+
+/* A pseudo-element cannot be animated directly, so it reads --draw and the
+   script animates that. Default 1, so no script means a drawn rule. */
+.head::before,
+.page-hero .k::before,
+.consult .k::before,
+.statement .rv > .k::before{content:"";display:block;width:clamp(38px,4.6vw,66px);
+  height:1px;background:var(--brass);transform-origin:left center;
+  transform:scaleX(var(--draw,1))}
+.head::before{margin-bottom:4px}
+.page-hero .k::before,.consult .k::before,
+.statement .rv > .k::before{margin-bottom:14px}
+.navy .head::before,.page-hero.navy .k::before,.consult .k::before{background:var(--brass-2)}
+
+/* ═══ the reading light ════════════════════════════════════════════════
+   A statement dims, then brightens word by word as it scrolls through.
+   Taken from void_craft's ScrollFillText. The script supplies the dim
+   start state, so without it the sentence simply reads. */
+
+.fill-t{display:block}
+.fill-t .fw{display:inline-block;will-change:opacity}
+
+/* ═══ footer: the name rises over a horizon, and the sun rises with it ═══
+   Ported from the single-page build. The page opens at sunrise and closes
+   at sunrise. (guide s.09, signature moments) */
+
+.site-foot{position:relative;overflow:hidden;
+  padding-bottom:clamp(16px,2.2vw,32px)}
+.site-foot > *{position:relative;z-index:1}
+.site-foot .legal{margin-bottom:clamp(18px,2.4vw,30px)}
+
+/* The mark carries the type scale, so the sun can be sized in em against it.
+   Sized any other way it outgrows the mask and the disc is cut off flat. */
+.foot-mark{position:relative;z-index:0;margin-top:clamp(10px,1.6vw,22px);
+  font-size:clamp(4.2rem,16.5vw,15rem);   /* 1em = the wordmark */
+  overflow:hidden;isolation:isolate}
+/* mask height is 1.02em of line plus .2em of descender room = 1.22em;
+   at 1.15em tall and .18em low the disc clears the top and only the
+   horizon clips it, which is the whole point of the image */
+.foot-sun{position:absolute;left:50%;bottom:-.18em;width:1.15em;
+  aspect-ratio:1;border-radius:50%;background:var(--hinomaru);
+  transform:translate(-50%,0);z-index:0;opacity:.92;filter:blur(.4px)}
+.foot-word{position:relative;z-index:1;display:flex;justify-content:center;
+  gap:clamp(2px,.5vw,8px);margin:0;padding:0;white-space:nowrap;
+  font-family:var(--serif);font-weight:600;
+  font-size:1em;line-height:1.02;letter-spacing:-.02em;
+  color:var(--on-navy);user-select:none}
+/* the padding gives descenders room INSIDE the mask; no negative margin, or
+   .foot-mark clips before .fl does and the J tail gets cut */
+.fl{display:block;overflow:hidden;padding-bottom:.2em}
+.fl > span{display:block;will-change:transform}
+.foot-horizon{position:absolute;left:0;right:0;bottom:0;height:1px;
+  background:var(--brass-2);opacity:.5;z-index:2;transform-origin:left}
+
+/* ═══ page transition ══════════════════════════════════════════════════
+   Leaving a page raises a navy curtain with the sun in it; the next page
+   loads already covered and lifts the same curtain away. The lift is a CSS
+   animation, not script, so a failed script can never strand anyone. */
+
+.curtain{position:fixed;inset:0;z-index:200;background:var(--navy);
+  pointer-events:none;visibility:hidden;transform:translateY(100%);
+  display:grid;place-items:center;overflow:hidden}
+.curtain::before{content:"";position:absolute;left:0;right:0;top:0;height:1px;
+  background:var(--brass-2);opacity:.55}
+.curtain.go{visibility:visible;pointer-events:auto}
+
+.curtain-in{position:relative;display:grid;justify-items:center;gap:clamp(18px,2.4vw,30px);
+  padding-inline:var(--gutter)}
+.curtain-sun{width:clamp(56px,7vw,92px);aspect-ratio:1;border-radius:50%;
+  background:var(--hinomaru);display:block}
+.curtain-word{margin:0;font-family:var(--serif);font-weight:600;
+  font-size:clamp(2.1rem,6vw,4rem);letter-spacing:.14em;color:var(--on-navy);
+  display:flex;gap:.06em;white-space:nowrap}
+.curtain-word .cl{display:block;overflow:hidden;padding-bottom:.14em}
+.curtain-word .cl > span{display:block}
+.curtain-note{margin:0;font-family:var(--mono);font-size:11px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--on-navy-muted)}
+
+/* the arriving page: covered at first paint, then lifted */
+html.entering .curtain{visibility:visible;transform:translateY(0);
+  animation:curtainLift var(--dur-ceremony) var(--ease-ma) .26s forwards}
+html.entering .curtain-in{animation:curtainDrift var(--dur-ceremony) var(--ease-ma) .26s forwards}
+@keyframes curtainLift{to{transform:translateY(-100%);visibility:hidden}}
+@keyframes curtainDrift{to{transform:translateY(-26%);opacity:0}}
+
+/* ═══ reduced motion ═══════════════════════════════════════════════════
+   The script already returns before any of its motion, and the head script
+   never flags a transition. This stops the CSS half: the ambient ticker,
+   the curtain animation, and every transition. (guide s.09) */
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.001ms !important;animation-iteration-count:1 !important;
+    transition-duration:.001ms !important;scroll-behavior:auto !important}
+  html.entering .curtain,html.entering .curtain-in{animation:none}
+  html.entering .curtain{visibility:hidden;transform:translateY(100%)}
+  .ticker .track{animation:none}
+}
+
+/* ═══ print ════════════════════════════════════════════════════════════ */
+
+@media print{
+  .site-head,.ticker,.curtain,.foot-mark{display:none}
+  .site-foot{background:none;color:#000}
+  .hero2,.page-hero.navy,.navy{background:none;color:#000;margin-top:0;padding-top:0}
+  .hero2 h1,.page-hero.navy h1,.navy h2{color:#000}
+}

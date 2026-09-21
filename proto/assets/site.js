@@ -11,14 +11,20 @@
   try { reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
 
   /* ---------- header: scrolled state, and transparent over a navy hero ---------- */
-  var navyHero = d.querySelector('.hero2, .page-hero.navy');
+  /* Every full-bleed navy band, not just the hero: the header has to read
+     reversed over the closing panel and the footer too, or it drops a pale
+     slab onto dark ground at the bottom of the page. */
+  var navyBands = d.querySelectorAll('.hero2, .page-hero.navy, section.navy, .site-foot');
   function onScroll() {
     if (!head) return;
     head.classList.toggle('scrolled', window.scrollY > 8);
-    if (navyHero) {
-      var limit = navyHero.offsetTop + navyHero.offsetHeight - 76;
-      head.classList.toggle('on-navy', window.scrollY < limit);
-    }
+    var band = head.offsetHeight * .55;   /* judge by the wordmark, not the edge */
+    var over = false;
+    Array.prototype.forEach.call(navyBands, function (el) {
+      var r = el.getBoundingClientRect();
+      if (r.top <= band && r.bottom >= band) over = true;
+    });
+    head.classList.toggle('on-navy', over);
   }
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', onScroll);
@@ -27,9 +33,18 @@
     menuBtn.addEventListener('click', function () {
       var open = head.classList.toggle('open');
       menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      d.body.classList.toggle('nav-open', open);
+    });
+    /* choosing a destination closes the sheet before the page moves */
+    Array.prototype.forEach.call(d.querySelectorAll('.nav a'), function (a) {
+      a.addEventListener('click', function () {
+        head.classList.remove('open');
+        menuBtn.setAttribute('aria-expanded', 'false');
+        d.body.classList.remove('nav-open');
+      });
     });
     d.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && head.classList.contains('open')) { head.classList.remove('open'); menuBtn.setAttribute('aria-expanded', 'false'); menuBtn.focus(); }
+      if (e.key === 'Escape' && head.classList.contains('open')) { head.classList.remove('open'); menuBtn.setAttribute('aria-expanded', 'false'); d.body.classList.remove('nav-open'); menuBtn.focus(); }
     });
   }
   var here = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
@@ -110,27 +125,69 @@
   if (ST) g.registerPlugin(ST);
   var EXPO = 'expo.out';
 
-  /* page-exit curtain: internal links slide a navy sheet up, then navigate.
-     Exit is short (450 ms); the next page's own entrance is the reveal. */
-  var curtain = d.createElement('div');
-  curtain.className = 'curtain';
-  curtain.setAttribute('aria-hidden', 'true');
-  d.body.appendChild(curtain);
-  g.set(curtain, { yPercent: 101 });
-  window.addEventListener('pageshow', function () { curtain.classList.remove('go'); g.set(curtain, { yPercent: 101 }); });
-  d.addEventListener('click', function (e) {
-    var a = e.target.closest('a[href]');
-    if (!a) return;
-    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-    if (a.target === '_blank' || a.hasAttribute('download')) return;
-    var href = a.getAttribute('href');
-    if (!href || /^(https?:|mailto:|tel:|#)/.test(href)) return;
-    var file = href.split('#')[0].toLowerCase();
-    if (file === here) return; /* same page anchors scroll normally */
-    e.preventDefault();
-    curtain.classList.add('go');
-    g.to(curtain, { yPercent: 0, duration: .45, ease: 'expo.inOut', onComplete: function () { window.location.href = href; } });
-  });
+  /* ---------- page transition ----------
+     Leaving a page raises a navy curtain carrying the sun and the name. The
+     next page loads already covered and lifts the same curtain with a CSS
+     animation, so a script that never arrives cannot strand anyone behind it. */
+  var curtain = d.getElementById('curtain');
+  if (curtain) {
+    var cSun = curtain.querySelector('.curtain-sun');
+    var cLetters = curtain.querySelectorAll('.curtain-word .cl > span');
+    var cNote = curtain.querySelector('.curtain-note');
+    var leaving = false;
+
+    function parkCurtain() {
+      leaving = false;
+      curtain.classList.remove('go');
+      /* y:0 matters. The stylesheet already parks the curtain at
+         translateY(100%), which GSAP reads as a 900px base and would then
+         stack yPercent on top of - leaving the curtain a whole viewport below
+         the screen, where it covers nothing on the way out. */
+      g.set(curtain, { y: 0, yPercent: 100 });
+      g.set([cSun, cNote], { clearProps: 'all' });
+      g.set(cLetters, { clearProps: 'all' });
+    }
+
+    if (d.documentElement.classList.contains('entering')) {
+      /* the CSS lift owns the transform until it finishes */
+      curtain.addEventListener('animationend', function done(ev) {
+        if (ev.target !== curtain) return;
+        curtain.removeEventListener('animationend', done);
+        d.documentElement.classList.remove('entering');
+        parkCurtain();
+      });
+    } else {
+      parkCurtain();
+    }
+    /* a back-button return must not land on a raised curtain */
+    window.addEventListener('pageshow', function (ev) {
+      if (ev.persisted) { d.documentElement.classList.remove('entering'); parkCurtain(); }
+    });
+
+    d.addEventListener('click', function (e) {
+      var a = e.target.closest('a[href]');
+      if (!a || leaving) return;
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      if (a.target === '_blank' || a.hasAttribute('download')) return;
+      var href = a.getAttribute('href');
+      if (!href || /^(https?:|mailto:|tel:|#)/.test(href)) return;
+      var file = href.split('#')[0].toLowerCase();
+      if (!file || file === here) return; /* same page: anchors scroll normally */
+      e.preventDefault();
+      leaving = true;
+      try { sessionStorage.setItem('jingi-transit', '1'); } catch (err) {}
+      curtain.classList.add('go');
+      var out = g.timeline({
+        onComplete: function () { window.location.href = href; }
+      });
+      out.to(curtain, { y: 0, yPercent: 0, duration: .52, ease: 'expo.inOut' }, 0);
+      if (cSun) out.fromTo(cSun, { yPercent: 72, opacity: 0 },
+        { yPercent: 0, opacity: 1, duration: .52, ease: EXPO }, .14);
+      if (cLetters.length) out.fromTo(cLetters, { yPercent: 118 },
+        { yPercent: 0, duration: .5, ease: EXPO, stagger: .035 }, .2);
+      if (cNote) out.fromTo(cNote, { opacity: 0 }, { opacity: 1, duration: .34 }, .4);
+    });
+  }
 
   /* headline words, wrapped only now so a scriptless page keeps plain text */
   function splitWords(h) {
@@ -146,7 +203,7 @@
   }
 
   /* entrance choreography */
-  var intro = g.timeline({ defaults: { ease: EXPO } });
+  var intro = g.timeline({ defaults: { ease: EXPO }, delay: d.documentElement.classList.contains('entering') ? .5 : 0 });
   var h1 = d.querySelector('.hero2 h1, .page-hero h1');
   var kick = d.querySelectorAll('.hero-k');           /* kicker + crumbs */
   var rest = d.querySelectorAll('.rv-h:not(h1)');     /* lead, ja, actions, jump */
@@ -177,6 +234,48 @@
   if (quad.length) intro.from(quad, { opacity: 0, y: 16, duration: .7, stagger: .09 }, .6);
   var arcbox = d.querySelector('.arcbox');
   if (arcbox) intro.from(arcbox, { opacity: 0, y: 16, duration: .8 }, .6);
+
+  /* ---------- the horizon, drawn before each section title ----------
+     The flat base of the logo's sun, reused as a rule. (guide s.04, s.09) */
+  if (ST) {
+    g.utils.toArray('.head, .page-hero .k, .consult .k, .statement .rv > .k').forEach(function (el) {
+      g.fromTo(el, { '--draw': 0 }, { '--draw': 1, duration: .9, ease: EXPO,
+        scrollTrigger: { trigger: el, start: 'top 90%', once: true } });
+    });
+  }
+
+  /* ---------- the reading light ----------
+     A statement dims, then brightens word by word as it scrolls through.
+     Splitting walks child nodes, not textContent, so inline markup survives. */
+  function splitFill(el) {
+    var parts = [];
+    Array.prototype.slice.call(el.childNodes).forEach(function (n) {
+      if (n.nodeType === 3) {
+        n.nodeValue.split(/(\s+)/).forEach(function (chunk) {
+          if (!chunk) return;
+          if (/^\s+$/.test(chunk)) { parts.push(d.createTextNode(chunk)); return; }
+          var s = d.createElement('span'); s.className = 'fw'; s.textContent = chunk;
+          parts.push(s);
+        });
+      } else if (n.nodeType === 1) {
+        var w = d.createElement('span'); w.className = 'fw';
+        w.appendChild(n.cloneNode(true)); parts.push(w);
+      }
+    });
+    if (!parts.length) return [];
+    while (el.firstChild) { el.removeChild(el.firstChild); }
+    var spans = [];
+    parts.forEach(function (n) { el.appendChild(n); if (n.nodeType === 1) spans.push(n); });
+    return spans;
+  }
+  if (ST) {
+    g.utils.toArray('.fill-t').forEach(function (el) {
+      var words = splitFill(el);
+      if (!words.length) return;
+      g.fromTo(words, { opacity: .22 }, { opacity: 1, ease: 'none', stagger: .4,
+        scrollTrigger: { trigger: el, start: 'top 86%', end: 'top 32%', scrub: .4 } });
+    });
+  }
 
   /* the arc draws itself when it comes into view */
   function drawArc(svg, delay) {
@@ -213,5 +312,16 @@
       g.from(el, { y: 16, opacity: 0, duration: .6, ease: 'power2.out',
         scrollTrigger: { trigger: el, start: 'top 90%', once: true } });
     });
+  }
+
+  /* ---------- the footer mark ----------
+     The name rises over a horizon and the sun rises with it. The page opens
+     at sunrise and closes at sunrise. (guide s.09) */
+  var mark = d.querySelector('.foot-mark');
+  if (mark && ST) {
+    g.timeline({ scrollTrigger: { trigger: mark, start: 'top 94%', end: 'bottom bottom', scrub: .6 } })
+      .fromTo('#foot-sun', { yPercent: 78 }, { yPercent: 0, ease: 'none' }, 0)
+      .fromTo('#foot-word .fl > span', { yPercent: 112 }, { yPercent: 0, ease: 'none', stagger: .07 }, 0)
+      .fromTo('#foot-horizon', { scaleX: 0 }, { scaleX: 1, ease: 'none' }, 0);
   }
 })();
