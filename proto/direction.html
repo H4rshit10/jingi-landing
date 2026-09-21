@@ -10,6 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+JP:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site.css">
 <link rel="stylesheet" href="assets/site-v2.css">
+<link rel="stylesheet" href="assets/site-v3.css">
 <style>
   .doc h2{margin-bottom:18px}
   .doc .section{padding-block:var(--sp-5);border-bottom:1px solid var(--line)}
@@ -148,6 +149,9 @@
           <li><b>05</b><span>Buttons are 2px radius, 48px tall. One filled button per view; everything else is a text link with a rule.</span></li>
           <li><b>06</b><span>Missing figures are marked "figure pending" in a dashed brass tag, visibly, so the client sees what we need instead of a made-up number.</span></li>
           <li><b>07</b><span>Signature devices, all brass on navy: the annotated duotone frame, the running ticker, the Tokyo-to-Gurugram arc in every consultation band, the five-node stage line on the home page, and the four numerals that open the Services page.</span></li>
+          <li><b>08</b><span>The craft pass adds five more. A fine grain over every page at 5 per cent, so the paper reads as printed rather than screened. A meridian field behind the navy bands and the statement: a globe graticule, parallels crossed by curved meridians, at 7 per cent on paper and 16 per cent on navy. A fixed rail at the right edge above 1400px, Tokyo at the top and Gurugram at the bottom, with a brass mark that travels with the scroll and inverts over navy; it stays hidden until the hero is behind you, because the hero photograph runs to the edge of the screen. Ghost numerals at 4.5 per cent behind each of the four practices. And the closing mark in the footer, the wordmark rising letter by letter over a drawn horizon while the arc completes behind it.</span></li>
+          <li><b>09</b><span>The home headline sets one word, <em>India</em>, in brass italic. It is the only italic on the site and the only place brass carries a word rather than a rule or a numeral.</span></li>
+          <li><b>10</b><span>The first draft of the meridian field used nested arcs and read unmistakably as seigaiha, the Japanese wave. It was redrawn as a graticule for that reason. Any texture proposed here has to survive the same test: would a Japanese executive read it as decoration from home?</span></li>
         </ul>
       </div>
     </div>
@@ -158,6 +162,7 @@
       <div class="sticky rv"><p class="k"><b>07</b> Motion</p><h2>The words first, then the day draws itself.</h2></div>
       <div class="measure rv">
         <p>Entrance: the kicker settles, the headline rises word by word out of a mask, then the lead, the Japanese line and the buttons follow. The photograph wipes open from the top while it eases from 116 per cent to rest, its annotation lines draw and their labels appear, and the clocks fade in last. On scroll: a slow parallax inside the hero frame, every other photograph wiping open once as it arrives, the arc drawing itself, the stage line filling and lighting its five nodes as the statement passes, and small 16px reveals for everything else. Leaving a page: a navy curtain rises in 450 milliseconds, then the next page's own entrance is the reveal. No cursor effects, no petals. Motion here means "in order", which is the brand.</p>
+        <p>The craft pass adds four moments and one rule. Each kicker draws a brass hairline before its heading, and each section head draws a brass segment across the rule above it. The positioning sentence on the home page is lit word by word as it is read, scrubbed to the scroll, rising from 55 per cent opacity to full; 55 is not a taste decision, it is the lowest value that still measures 3.6:1 against Paper 2, which clears AA for text this size before the scroll has touched it. The ghost numerals drift against the scroll. And the footer runs one scrubbed timeline: five letters rise out of their masks, the horizon draws left to right, and the brass arc completes behind them. Every duration now comes from one scale declared at the top of the craft stylesheet, 240ms to 1.6s.</p>
         <p>Contract, unchanged from the earlier pages: nothing is hidden by CSS. GSAP sets its own start states, so a blocked script, a missing file or a reduced-motion setting leaves every page whole. The verify script tests all three.</p>
       </div>
     </div>
@@ -185,7 +190,7 @@
     <div class="wrap split">
       <div class="sticky rv"><p class="k"><b>09</b> Files</p><h2>How this folder works.</h2></div>
       <div class="measure rv">
-        <p>Five pages, one stylesheet, one script, vendored GSAP, the logo and the partner marks. Open <code style="font-family:var(--mono)">index.html</code> from disk; nothing needs a server. Fonts load from Google Fonts and fall back to system faces offline. The design tokens are the first forty lines of <code style="font-family:var(--mono)">assets/site.css</code>. Header, footer and the consultation band are the only blocks that repeat across pages; the build check fails if any other sentence appears twice.</p>
+        <p>Five pages, three stylesheets, one script, vendored GSAP, the logo and the partner marks. The stylesheets stack: <code style="font-family:var(--mono)">site.css</code> holds the tokens and the base components, <code style="font-family:var(--mono)">site-v2.css</code> adds the imagery and the signature devices, and <code style="font-family:var(--mono)">site-v3.css</code> is the craft pass. Each layer is additive, so removing the last one returns the previous look rather than breaking the page. Open <code style="font-family:var(--mono)">index.html</code> from disk; nothing needs a server. Fonts load from Google Fonts and fall back to system faces offline. The design tokens are the first forty lines of <code style="font-family:var(--mono)">assets/site.css</code>. Header, footer and the consultation band are the only blocks that repeat across pages; the build check fails if any other sentence appears twice.</p>
       </div>
     </div>
   </section>

@@ -10,8 +10,24 @@
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+JP:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site.css">
 <link rel="stylesheet" href="assets/site-v2.css">
+<link rel="stylesheet" href="assets/site-v3.css">
 </head>
 <body>
+
+<svg width="0" height="0" class="defs" aria-hidden="true" focusable="false" style="position:absolute">
+  <defs>
+    <pattern id="meridian" width="240" height="240" patternUnits="userSpaceOnUse">
+      <g fill="none" stroke="currentColor" stroke-width="1">
+        <path d="M0 .5H240M0 60.5H240M0 120.5H240M0 180.5H240"/>
+        <path d="M30 0C4 60 4 180 30 240"/>
+        <path d="M90 0C76 60 76 180 90 240"/>
+        <path d="M150 0C164 60 164 180 150 240"/>
+        <path d="M210 0C236 60 236 180 210 240"/>
+      </g>
+    </pattern>
+  </defs>
+</svg>
+<div class="grain" aria-hidden="true"></div>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <filter id="duo" color-interpolation-filters="sRGB">
@@ -47,6 +63,7 @@
 <main>
 
   <section class="page-hero navy">
+    <div class="mer mer-brass" aria-hidden="true"><svg><rect width="100%" height="100%" fill="url(#meridian)"/></svg></div>
     <div class="wrap grid">
       <div>
       <p class="crumbs hero-k"><a href="index.html">Home</a><span>/</span><span>About</span></p>
@@ -151,6 +168,7 @@
   </section>
 
   <section class="navy consult" aria-labelledby="cta-h">
+    <div class="mer mer-brass" aria-hidden="true"><svg><rect width="100%" height="100%" fill="url(#meridian)"/></svg></div>
     <div class="wrap inner">
       <div class="rv">
         <svg class="arc" viewBox="0 0 600 150" aria-hidden="true">
@@ -172,6 +190,12 @@
 
 </main>
 
+<div class="rail" aria-hidden="true">
+  <b>Tokyo</b>
+  <span class="rail-line"><span class="rail-fill"></span><span class="rail-dot"></span></span>
+  <b>Gurugram</b>
+</div>
+
 <footer class="site-foot">
   <div class="wrap">
     <div class="top">
@@ -188,6 +212,11 @@
       <span><a href="legal.html#privacy">Privacy</a> &nbsp;·&nbsp; <a href="legal.html#terms">Terms</a></span>
       <span>Design: Void Craft &amp; zxevo_dot</span>
     </div>
+  </div>
+  <div class="foot-mark" aria-hidden="true">
+    <svg class="foot-arc" viewBox="0 0 1240 300"><path class="p" d="M40 292 Q620 12 1200 292"/><path class="f" d="M40 292 Q620 12 1200 292" pathLength="1"/></svg>
+    <p class="foot-word"><span class="fl"><span>J</span></span><span class="fl"><span>I</span></span><span class="fl"><span>N</span></span><span class="fl"><span>G</span></span><span class="fl"><span>I</span></span></p>
+    <span class="foot-horizon"></span>
   </div>
 </footer>
 

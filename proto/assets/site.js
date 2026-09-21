@@ -1,4 +1,4 @@
-/* JINGI prototype — shared behaviour, v2.
+/* JINGI prototype — shared behaviour, v3.
    Contract: the page is complete without this file. Nothing below hides
    content unless it is about to animate it in, and only when GSAP loaded
    and the visitor has not asked for reduced motion. */
@@ -52,6 +52,38 @@
   }
   tick();
   setInterval(tick, 30000);
+
+  /* ---------- the rail: scroll progress between the two cities ----------
+     Position tracks the scrollbar, so it runs even when motion is refused. */
+  var rail = d.querySelector('.rail');
+  if (rail) {
+    var rFill = rail.querySelector('.rail-fill');
+    var rDot = rail.querySelector('.rail-dot');
+    var rLine = rail.querySelector('.rail-line');
+    var bands = d.querySelectorAll('.hero2, .page-hero.navy, .navy, .site-foot');
+    var heroEl = d.querySelector('.hero2, .page-hero');
+    var queued = false;
+    function railPaint() {
+      queued = false;
+      var max = d.documentElement.scrollHeight - window.innerHeight;
+      var p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+      if (rFill) rFill.style.transform = 'scaleY(' + p.toFixed(4) + ')';
+      if (rDot && rLine) rDot.style.top = (p * rLine.offsetHeight).toFixed(1) + 'px';
+      /* the rail would otherwise sit on top of the full-bleed hero photograph */
+      var gate = heroEl ? heroEl.offsetTop + heroEl.offsetHeight - 140 : 160;
+      rail.classList.toggle('show', window.scrollY > gate);
+      var mid = window.innerHeight / 2, dark = false;
+      Array.prototype.forEach.call(bands, function (el) {
+        var r = el.getBoundingClientRect();
+        if (r.top <= mid && r.bottom >= mid) dark = true;
+      });
+      rail.classList.toggle('on-dark', dark);
+    }
+    function railTick() { if (!queued) { queued = true; requestAnimationFrame(railPaint); } }
+    window.addEventListener('scroll', railTick, { passive: true });
+    window.addEventListener('resize', railTick);
+    railPaint();
+  }
 
   /* ---------- consultation form ---------- */
   var form = d.getElementById('consult-form');
@@ -132,18 +164,63 @@
     g.to(curtain, { yPercent: 0, duration: .45, ease: 'expo.inOut', onComplete: function () { window.location.href = href; } });
   });
 
-  /* headline words, wrapped only now so a scriptless page keeps plain text */
-  function splitWords(h) {
-    var text = h.textContent.trim().split(/\s+/);
-    h.textContent = '';
-    text.forEach(function (w, i) {
-      var wrap = d.createElement('span'); wrap.className = 'h1w';
-      var inner = d.createElement('span'); inner.textContent = w;
-      wrap.appendChild(inner); h.appendChild(wrap);
-      if (i < text.length - 1) h.appendChild(d.createTextNode(' '));
-    });
-    return h.querySelectorAll('.h1w > span');
+  /* Word splitters. Both walk child nodes rather than reading textContent, so
+     inline emphasis inside a headline survives the split. They run only here,
+     which keeps a scriptless page on plain text. */
+  function eachWord(host, make) {
+    var out = [];
+    (function walk(node) {
+      Array.prototype.slice.call(node.childNodes).forEach(function (n) {
+        if (n.nodeType === 3) {
+          var parts = n.nodeValue.split(/(\s+)/);
+          var frag = d.createDocumentFragment();
+          parts.forEach(function (p) {
+            if (!p) return;
+            if (/^\s+$/.test(p)) { frag.appendChild(d.createTextNode(' ')); return; }
+            frag.appendChild(make(p, out));
+          });
+          node.replaceChild(frag, n);
+        } else if (n.nodeType === 1) { walk(n); }
+      });
+    })(host);
+    return out;
   }
+  function splitMask(h) {
+    return eachWord(h, function (word, out) {
+      var wrap = d.createElement('span'); wrap.className = 'h1w';
+      var inner = d.createElement('span'); inner.textContent = word;
+      wrap.appendChild(inner); out.push(inner);
+      return wrap;
+    });
+  }
+  function splitPlain(h) {
+    return eachWord(h, function (word, out) {
+      var s = d.createElement('span'); s.className = 'w'; s.textContent = word;
+      out.push(s);
+      return s;
+    });
+  }
+
+  /* hairline rules on every kicker that labels a heading */
+  var rules = [];
+  Array.prototype.forEach.call(d.querySelectorAll('.k'), function (k) {
+    var n = k.nextElementSibling;
+    if (!n || !/^H[12]$/.test(n.tagName)) return;
+    var i = d.createElement('i');
+    i.setAttribute('aria-hidden', 'true');
+    k.insertBefore(i, k.firstChild);
+    k.classList.add('has-rule');
+    rules.push(i);
+  });
+  /* brass segment over each section head's rule */
+  var drawn = [];
+  Array.prototype.forEach.call(d.querySelectorAll('.section > .wrap > .head'), function (h) {
+    var s = d.createElement('span');
+    s.className = 'drawn';
+    s.setAttribute('aria-hidden', 'true');
+    h.appendChild(s);
+    drawn.push(s);
+  });
 
   /* entrance choreography */
   var intro = g.timeline({ defaults: { ease: EXPO } });
@@ -151,7 +228,9 @@
   var kick = d.querySelectorAll('.hero-k');           /* kicker + crumbs */
   var rest = d.querySelectorAll('.rv-h:not(h1)');     /* lead, ja, actions, jump */
   if (kick.length) intro.from(kick, { y: 14, opacity: 0, duration: .7 }, 0);
-  if (h1) intro.from(splitWords(h1), { yPercent: 110, duration: 1.1, stagger: .045 }, .1);
+  var heroRule = d.querySelector('.hero-k > i, .page-hero .k.has-rule > i');
+  if (heroRule) intro.from(heroRule, { scaleX: 0, duration: .9 }, .15);
+  if (h1) intro.from(splitMask(h1), { yPercent: 110, duration: 1.1, stagger: .045 }, .1);
   if (rest.length) intro.from(rest, { y: 18, opacity: 0, duration: .8, stagger: .08 }, .55);
 
   var heroFrame = d.querySelector('.hero2 .frame, .page-hero .frame');
@@ -193,11 +272,46 @@
     var fill = sl.querySelector('.fill'), nodes = sl.querySelectorAll('li');
     g.fromTo(fill, { scaleX: 0 }, { scaleX: 1, ease: 'none',
       scrollTrigger: { trigger: sl, start: 'top 85%', end: 'bottom 45%', scrub: .6,
-        onUpdate: function (self) { nodes.forEach(function (n, i) { n.classList.toggle('lit', self.progress >= i / (nodes.length - 1) - .02); }); } } });
+        onUpdate: function (self) { nodes.forEach(function (n, i) { n.classList.toggle('lit', self.progress >= i / (nodes.length - 1) - .02); } ); } } });
   }
 
-  /* sticky-photo parallax and reveals on scroll */
   if (ST) {
+    /* the reading light: the positioning statement lifts word by word */
+    g.utils.toArray('[data-fill]').forEach(function (h) {
+      var words = splitPlain(h);
+      if (!words.length) return;
+      g.fromTo(words, { opacity: .55 }, { opacity: 1, ease: 'none', duration: .6, stagger: .4,
+        scrollTrigger: { trigger: h, start: 'top 82%', end: 'bottom 58%', scrub: .4 } });
+    });
+
+    /* kicker rules and section-head segments draw before their heading */
+    rules.forEach(function (i) {
+      if (i === heroRule) return;
+      g.from(i, { scaleX: 0, duration: .9, ease: EXPO, scrollTrigger: { trigger: i, start: 'top 92%', once: true } });
+    });
+    drawn.forEach(function (s) {
+      g.fromTo(s, { scaleX: 0 }, { scaleX: 1, duration: 1.1, ease: EXPO, scrollTrigger: { trigger: s, start: 'top 95%', once: true } });
+    });
+
+    /* ghost numerals drift behind the practices */
+    g.utils.toArray('.practice .ghost').forEach(function (el) {
+      g.fromTo(el, { yPercent: 9 }, { yPercent: -9, ease: 'none',
+        scrollTrigger: { trigger: el.parentNode, start: 'top bottom', end: 'bottom top', scrub: true } });
+    });
+
+    /* the closing mark: wordmark, horizon and arc on one scrubbed timeline */
+    var fm = d.querySelector('.foot-mark');
+    if (fm) {
+      var letters = fm.querySelectorAll('.fl > span');
+      var hor = fm.querySelector('.foot-horizon');
+      var arcF = fm.querySelector('.foot-arc .f');
+      var close = g.timeline({ scrollTrigger: { trigger: fm, start: 'top 96%', end: 'bottom bottom', scrub: .5 } });
+      if (letters.length) close.from(letters, { yPercent: 115, duration: 1, stagger: .1, ease: 'none' }, 0);
+      if (hor) close.fromTo(hor, { scaleX: 0 }, { scaleX: 1, duration: 1.5, ease: 'none' }, 0);
+      if (arcF) close.fromTo(arcF, { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 1.9, ease: 'none' }, .15);
+    }
+
+    /* sticky-photo parallax and reveals on scroll */
     g.utils.toArray('.frame:not(.hero2 .frame):not(.page-hero .frame)').forEach(function (fr) {
       var im = fr.querySelector('img');
       g.fromTo(fr, { clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)', duration: 1.2, ease: 'expo.inOut',
