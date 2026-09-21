@@ -14,7 +14,7 @@ get the previous look back rather than a broken page.
 - `assets/site-v2.css` is the imagery layer: navy heroes, duotone photographs with
   brass annotations, ticker, arc, stage line, exit curtain.
 - `assets/site-v3.css` is the craft pass: paper grain, the meridian graticule behind
-  the navy bands, a fixed Tokyo-Gurugram rail above 1400px, ghost numerals behind the
+  the navy bands, a fixed Tokyo-India rail above 1400px, ghost numerals behind the
   four practices, drawn hairlines on every kicker and section head, the reading-light
   headline on the home page, and the closing wordmark in the footer.
 - `assets/site.js` drives all of it. Every page is complete without JavaScript: nothing
