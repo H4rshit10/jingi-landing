@@ -1,0 +1,54 @@
+/* JINGI prototype — v4 layer: the image-rich build.
+   Loaded after site-v3.css. Separate from proto/ and never pushed to the
+   collaborator's repository. Copy is unchanged. */
+
+/* ---------- warm split-tone: navy shadows, gold light ---------- */
+.frame img{filter:url(#warm)}
+
+/* ---------- jaali: the Mughal lattice, as a field on paper ---------- */
+.jaali{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.jaali svg{position:absolute;left:-120px;top:-120px;width:calc(100% + 240px);height:calc(100% + 240px);display:block;
+  color:var(--ink);opacity:.095}
+/* the field fades out under the content and lives in the margins and corners,
+   which is where the paisley sat in the mockups and where body text never is */
+.jaali{-webkit-mask-image:radial-gradient(ellipse 56% 60% at 50% 46%,transparent 38%,#000 96%);
+  mask-image:radial-gradient(ellipse 56% 60% at 50% 46%,transparent 38%,#000 96%)}
+.jaali.drift svg{animation:jaaliDrift 64s linear infinite}
+.jaali.paused svg{animation-play-state:paused}
+@keyframes jaaliDrift{to{transform:translate(120px,120px)}}
+.section.has-jaali,.practice.has-jaali{position:relative}
+.section.has-jaali > .wrap,.practice.has-jaali > .wrap{position:relative;z-index:1}
+/* the sticky photograph and the ghost numeral both stay above the field */
+.has-jaali .ghost{z-index:0}
+
+/* ---------- buta: one paisley, in ink, in the empty half of the statement ----------
+   The navy heroes were tried first and have no room for it without the tail
+   crossing the breadcrumb, which was measured, not guessed. */
+.statement .buta{position:absolute;right:4%;top:50%;width:clamp(220px,24vw,320px);height:auto;
+  color:var(--ink);opacity:.07;transform:translateY(-50%) rotate(-12deg);pointer-events:none;z-index:0}
+@media (max-width:1100px){.buta{display:none}}
+
+/* ---------- the turning globe ---------- */
+.consult .inner.inner-globe{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:var(--sp-5);align-items:center}
+.inner-globe .side{max-width:none;justify-self:stretch}
+.inner-globe .side h2{margin-top:14px}
+.inner-globe .side > p{margin-top:22px;max-width:46ch}
+.inner-globe .side .btn{margin-top:28px}
+.globe-wrap{position:relative;width:min(100%,540px);aspect-ratio:1;margin:0 auto}
+.globe-wrap canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+/* without script the arc stays; with the globe running it steps aside */
+.globe-wrap .arc{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);max-width:none;margin:0}
+.globe-wrap.live .arc{display:none}
+.globe-wrap:not(.live) canvas{display:none}
+@media (max-width:900px){
+  .consult .inner.inner-globe{grid-template-columns:1fr}
+  .globe-wrap{width:min(100%,340px)}
+}
+
+/* ---------- hero layers ---------- */
+.hero2 .mer,.hero2 .grid > div:first-child{will-change:transform}
+
+/* ---------- with motion refused ---------- */
+@media (prefers-reduced-motion:reduce){
+  .jaali.drift svg{animation:none}
+}

@@ -1,0 +1,153 @@
+/* JINGI v4 — the theme. Loaded last, after site-v4.css.
+   Taken from Ankit's mockups with the subject changed: ivory paper, charcoal
+   ink, one deep crimson for actions and the italic word, antique gold for
+   numerals and rules, full-colour photography, a high-contrast display face.
+
+   The base stylesheets are written entirely against tokens, so redefining
+   the tokens here re-colours the whole site; the rules below it handle the
+   places that assumed a dark hero.
+
+   2026-09-21: the warm-brown ink that used to sit in --navy read as mud,
+   especially behind the photographs, so the neutrals, the darks and the gold
+   are now the brand guide's own tokens verbatim — washi / khadi paper, night
+   and kon indigo, brass-ink on light and brass on dark. Crimson stays as the
+   single action colour. */
+
+:root{
+  --paper:#F7F3EA; --paper-2:#EDE6D6; --line:#DED5C3; --line-2:#C2B6A0;
+  --ink:#1C1D26; --text:#454A5C; --muted:#5D6170;
+  --navy:#111B38; --navy-2:#1F3266;                /* the dark bands: night, kon */
+  --on-navy:#F7F3EA; --on-navy-muted:#AAB4CC; --line-navy:rgba(247,243,234,.16);
+  --brass:#86611F; --brass-2:#C9A15B;              /* brass-ink on ivory, brass on dark */
+  --accent:#9B1C24; --accent-2:#7C1119;            /* crimson: buttons, links on hover, the one italic word */
+  --rule-brass:rgba(201,161,91,.42);
+  --globe-line:247,243,234; --globe-accent:201,161,91;
+  --serif:"Fraunces","Iowan Old Style","Palatino Linotype",Georgia,serif;
+  --sans:"Instrument Sans","Segoe UI",system-ui,-apple-system,sans-serif;
+  --mono:"DM Mono","Cascadia Mono",Consolas,monospace;
+  --jp:"Noto Sans JP","Hiragino Sans","Yu Gothic UI","Meiryo",sans-serif;
+}
+
+/* ---------- type: a high-contrast serif carries the headlines, a neo-grotesque the text ---------- */
+/* Fraunces is variable on four axes. SOFT 0 / WONK 0 is the sober cut — the
+   quirky one comes from leaving WONK on, so it is pinned everywhere. */
+h1,h2{font-weight:500;letter-spacing:-.008em}
+h1{font-variation-settings:"opsz" 96,"SOFT" 0,"WONK" 0}
+h2{font-variation-settings:"opsz" 56,"SOFT" 0,"WONK" 0}
+h3{font-weight:500;font-variation-settings:"opsz" 24,"SOFT" 0,"WONK" 0}
+h4{font-weight:500;font-variation-settings:"opsz" 18,"SOFT" 0,"WONK" 0}
+body{font-size:17px;letter-spacing:-.003em}
+.hero2 h1{letter-spacing:0;line-height:1.02;font-size:clamp(40px,5.2vw,80px)}
+.hero2 h1 em,.page-hero h1 em{font-style:italic;font-weight:500;color:var(--accent)}
+.statement h2{letter-spacing:0}
+.foot-word{font-weight:500;font-variation-settings:"opsz" 144,"SOFT" 0,"WONK" 0;letter-spacing:.03em}
+.quad a b{font-weight:500}
+
+/* ---------- the home hero is light now: ivory, ink, the photograph in colour ---------- */
+.hero2{background:var(--paper);color:var(--ink)}
+.hero2::after{background:var(--line-2)}
+.hero2 .mer{color:var(--ink);opacity:.06}
+.hero2 h1{color:var(--ink)}
+.hero2 .k{color:var(--muted)} .hero2 .k b{color:var(--brass)}
+.hero2 .k.has-rule > i{background:var(--brass)}
+.hero2 .lead{color:var(--text)} .hero2 .ja{color:var(--muted)}
+.hero2 .tlink{color:var(--ink);border-color:var(--line-2)} .hero2 .tlink:hover{border-color:var(--ink);color:var(--accent)}
+
+/* the header over a light hero keeps its colour logo and ink links, only the bar goes clear */
+.site-head.on-navy:not(.open){background:transparent}
+.site-head.on-navy:not(.open) .logo .lc{display:block}
+.site-head.on-navy:not(.open) .logo .lr{display:none}
+.site-head.on-navy:not(.open) .logo .word{color:var(--muted)}
+.site-head.on-navy:not(.open) .logo .word b{color:var(--ink)}
+.site-head.on-navy:not(.open) .nav a{color:var(--ink)}
+.site-head.on-navy:not(.open) .nav a::after{background:var(--accent)}
+.site-head.on-navy:not(.open) .nav .cta{border-color:var(--ink)}
+.site-head.on-navy:not(.open) .nav .cta:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.site-head.on-navy:not(.open) .lang{border-color:var(--line-2)}
+.site-head.on-navy:not(.open) .lang .on{background:var(--ink);color:var(--paper)}
+.site-head.on-navy:not(.open) .lang .off{color:var(--muted)}
+.site-head.on-navy:not(.open) .menu-btn{color:var(--ink);border-color:var(--line-2)}
+
+/* ---------- inner-page heroes, light too ---------- */
+.page-hero.navy{background:var(--paper);color:var(--ink)}
+.page-hero.navy::after{background:var(--line-2)}
+.page-hero.navy .mer{color:var(--ink);opacity:.06}
+.page-hero.navy .crumbs{color:var(--muted)} .page-hero.navy .crumbs a:hover{color:var(--ink)}
+.page-hero.navy h1{color:var(--ink)}
+.page-hero.navy .lead{color:var(--text)} .page-hero.navy .ja{color:var(--muted)}
+.page-hero.navy .k{color:var(--muted)} .page-hero.navy .k b{color:var(--brass)}
+.page-hero.navy .k.has-rule > i{background:var(--brass)}
+.page-hero.navy .jump a{color:var(--muted);border-color:var(--line)}
+.page-hero.navy .jump a:hover{color:var(--ink);border-color:var(--ink)}
+.page-hero.navy .jump a b{color:var(--brass)}
+.page-hero.navy .draft{color:var(--brass);border-color:var(--brass)}
+.page-hero.navy .tlink{color:var(--ink);border-color:var(--line-2)} .page-hero.navy .tlink:hover{border-color:var(--ink);color:var(--accent)}
+/* the four numerals become white cards with gold figures, the way the mockup's service cards sit on ivory */
+.quad{background:var(--line);border-color:var(--line)}
+.quad a{background:#fff;color:var(--ink)}
+.quad a:hover{background:var(--paper-2)}
+.quad a b{color:var(--brass)}
+.quad a span{color:var(--muted)}
+/* the contact hero's arc and clocks, on a white card */
+.arcbox{background:#fff;border-color:var(--line)}
+.arcbox .cl div{border-top-color:var(--line)}
+.arcbox .cl .k{color:var(--muted)}
+.arcbox .cl b{color:var(--ink)}
+.page-hero .arc .p{stroke:rgba(125,95,25,.4)}
+.page-hero .arc .f{stroke:var(--brass)}
+.page-hero .arc circle{fill:var(--brass)}
+.page-hero .arc text{fill:var(--muted)}
+
+/* ---------- photographs: colour, not duotoned and not sepia ----------
+   The sepia() that used to sit here is what turned every plate brown. */
+.frame{background:var(--navy)}
+.frame img{filter:saturate(.96) contrast(1.05)}
+.frame::before{background:radial-gradient(118% 84% at 50% 38%,transparent 45%,rgba(17,27,56,.36) 100%)}
+.frame::after{box-shadow:inset 0 0 0 1px rgba(201,161,91,.35)}
+.frame .ann{color:var(--brass-2)}
+.frame .ann::before,.frame .ann i{background:var(--brass-2)}
+/* the label reads in paper white on solid indigo; gold is kept for the dot and
+   the leader line, because gold type on a translucent warm plate was the mud */
+.frame .ann b{background:rgba(17,27,56,.92);border-color:rgba(201,161,91,.5);color:var(--on-navy);
+  -webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
+.frame .clocks2{background:rgba(17,27,56,.92);border-color:rgba(201,161,91,.5)}
+
+/* ---------- the About hero's index, where the tower plate used to be ----------
+   A card of ruled rows: the page's five sections, numbered, each with a line
+   of its own copy. It is navigation and a précis at once, which is what the
+   photograph was failing to be. */
+.page-hero .hero-index{background:#FBF8F2;border:1px solid var(--line);border-radius:2px;
+  padding:24px 26px 20px;align-self:end;
+  box-shadow:0 1px 0 rgba(28,29,38,.03),0 26px 50px -38px rgba(17,27,56,.55)}
+.hero-index .k{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.hero-index .k::after{content:"";height:1px;flex:1;background:var(--line)}
+.hero-index ol{list-style:none;margin:0;padding:0}
+.hero-index li{border-top:1px solid var(--line)}
+.hero-index li:first-child{border-top:0}
+.hero-index a{display:grid;grid-template-columns:30px minmax(0,1fr) 16px;align-items:start;gap:0 12px;
+  padding:13px 0;text-decoration:none;color:inherit}
+.hero-index a > b{font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:.06em;color:var(--brass);padding-top:3px}
+.hero-index strong{display:block;font-family:var(--serif);font-weight:500;font-size:19px;line-height:1.25;
+  font-variation-settings:"opsz" 24,"SOFT" 0,"WONK" 0;letter-spacing:-.008em;color:var(--ink);transition:color .2s}
+.hero-index em{display:block;font-style:normal;font-size:13.5px;line-height:1.5;color:var(--muted);margin-top:3px}
+.hero-index .arr{width:14px;height:14px;margin-top:6px;color:var(--accent);opacity:0;transform:translateX(-5px);
+  transition:opacity .22s var(--ease),transform .22s var(--ease)}
+.hero-index a:hover strong,.hero-index a:focus-visible strong{color:var(--accent)}
+.hero-index a:hover .arr,.hero-index a:focus-visible .arr{opacity:1;transform:none}
+.hero-index .close{margin:12px 0 0;padding-top:13px;border-top:1px solid var(--line);
+  font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted)}
+@media (max-width:900px){.page-hero .hero-index{margin-top:10px}}
+
+/* ---------- crimson is the action colour, everywhere, once per view ---------- */
+.btn,.btn.on-navy{background:var(--accent);color:#fff;border-color:var(--accent)}
+.btn:hover,.btn.on-navy:hover{background:var(--accent-2);border-color:var(--accent-2);color:#fff}
+.tlink:hover{color:var(--accent)}
+.nav a::after{background:var(--accent)}
+
+/* ---------- smaller things that assumed navy ---------- */
+.ticker{background:var(--paper-2);border-top:1px solid var(--line)}
+.ticker span::after{background:var(--brass)}
+.ticker b{color:var(--ink)}
+.practice .ghost{color:rgba(28,29,38,.05)}
+.receive{box-shadow:0 1px 0 rgba(28,29,38,.04),0 12px 32px -18px rgba(28,29,38,.25)}
+.stageline li i{background:var(--paper)}

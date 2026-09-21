@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JINGI — Design direction v2</title>
+<meta name="description" content="Why the redesign moved away from the Japanese-postcard hero, and the system that replaced it. For Ankit and Harshit.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..600;1,9..144,400..600&family=Instrument+Sans:ital,wght@0,400..600;1,400..600&family=DM+Mono:wght@400;500&family=Noto+Sans+JP:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/site-v2.css">
+<link rel="stylesheet" href="assets/site-v3.css">
+<link rel="stylesheet" href="assets/site-v4.css">
+<link rel="stylesheet" href="assets/theme.css">
+<style>
+  .doc h2{margin-bottom:18px}
+  .doc .section{padding-block:var(--sp-5);border-bottom:1px solid var(--line)}
+  .doc p+p{margin-top:12px}
+  .doc .measure p{max-width:66ch}
+  .list{margin:14px 0 0;padding:0;list-style:none;display:grid;gap:10px}
+  .list li{display:grid;grid-template-columns:32px 1fr;gap:10px;font-size:16px}
+  .list li b{font-family:var(--mono);font-size:12px;color:var(--brass);font-weight:500;padding-top:4px}
+  .sw{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px;margin-top:22px;list-style:none;padding:0}
+  .sw li{border:1px solid var(--line);border-radius:2px;overflow:hidden;background:#fff;font-size:13px}
+  .sw i{display:block;height:64px}
+  .sw div{padding:10px 12px;display:grid;gap:2px}
+  .sw b{font-weight:500;color:var(--ink)}
+  .sw code{font-family:var(--mono);font-size:12px;color:var(--muted)}
+  .spec{display:grid;grid-template-columns:1fr 1fr;gap:24px 40px;margin-top:22px}
+  .spec .s{border-top:1px solid var(--ink);padding-top:14px}
+  .spec .s .k{margin-bottom:10px}
+  .spec .s .x{font-size:34px;line-height:1.1;color:var(--ink)}
+  .cmp{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:22px}
+  .cmp div{border:1px solid var(--line);border-radius:2px;padding:20px 22px;background:#fff}
+  .cmp h4{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;font-weight:500}
+  .cmp ul{margin:0;padding-left:18px;display:grid;gap:6px;font-size:15px}
+  .cmp .no{border-color:#C9B8B0}
+  .cmp .no h4{color:#8E3A2C}
+  @media (max-width:760px){.spec,.cmp{grid-template-columns:1fr}}
+  @media (max-width:900px){.site-head .nav{display:none!important}}
+</style>
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap bar">
+    <a class="logo" href="index.html" aria-label="Prototype home">
+      <img src="assets/logo-color.png" alt="JINGI" width="560" height="420">
+      <span class="word"><b>Design direction v2</b>Internal · Void Craft &amp; zxevo_dot</span>
+    </a>
+    <nav class="nav" aria-label="Prototype pages" style="display:flex">
+      <a href="index.html">Home</a><a href="about.html">About</a><a href="services.html">Services</a><a href="contact.html">Contact</a><a href="legal.html">Legal</a>
+    </nav>
+  </div>
+</header>
+
+<main class="doc">
+
+  <section class="page-hero">
+    <div class="wrap">
+      <p class="k hero-k">Internal · 20 September 2026 · for Ankit and Harshit</p>
+      <h1>Japan is the manner. India is the subject.</h1>
+      <p class="lead rv-h">The client said the last hero felt too Japanese. They are right, and the fix is not a smaller Fuji. This page records what changed, why, and the system the five prototype pages now follow.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap split">
+      <div class="sticky rv"><p class="k"><b>01</b> Diagnosis</p><h2>What was Japan-coded, all at once.</h2></div>
+      <div class="measure rv">
+        <p>The layered hero stacked every Japanese signal a designer has: Mount Fuji, cherry blossom on both sides, falling petals, the rising sun, a lakeside temple town, a Mincho serif for the English headline, kanji used as decoration, a vertical Japanese line, washi cream, a Tokyo-to-Delhi rail and a "two nations" corner mark. India appeared as one gold word.</p>
+        <p>Read by the actual audience, a Japanese executive at head office, that page sells Japan to a Japanese person. What they need to be sold is India, handled with the discipline they are used to. The postcard says "we love Japan"; the brief says "law firm, high-end consulting, calm, trust".</p>
+        <ul class="list">
+          <li><b>90</b><span>per cent of the hero's visual signals said Japan</span></li>
+          <li><b>10</b><span>said India (the word, in gold)</span></li>
+          <li><b>0</b><span>said "corporate-services firm"</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap split">
+      <div class="sticky rv"><p class="k"><b>02</b> The principle</p><h2>Japanese discipline, not Japanese imagery.</h2></div>
+      <div class="measure rv">
+        <p>Japan shows up in how the site behaves: everything numbered, dated and in its place; generous whitespace; bilingual precision where a Japanese reader actually reads; nothing decorative that does no work. India and the work itself are what the pages are about: incorporation, compliance, people, books, the office itself, the time difference.</p>
+        <div class="cmp">
+          <div><h4>Kept</h4><ul><li>Japanese text where it is read as text (one line per hero, the desk name, the director's name)</li><li>The name's two readings, explained once, on About</li><li>Live Tokyo and India clocks: an operational fact, not a motif</li><li>Client's own navy; their gold as a hairline and numeral colour only</li><li>The real logo, and therefore the only red on the site</li><li>Photographs, but only in a navy-to-paper duotone with brass annotations, so Delhi and Tokyo read as one system and the future office shots will too</li></ul></div>
+          <div class="no"><h4>Retired</h4><ul><li>Fuji, sakura, petals, the hinomaru as a hero graphic</li><li>Kanji as ornament, vertical Japanese lines</li><li>A Japanese Mincho for Latin text</li><li>Washi cream, the paper-texture idea</li><li>The TYO/DEL rail and "Two nations, one vision"</li><li>Photographs in colour, and any photograph that is a landmark for its own sake</li></ul></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap split">
+      <div class="sticky rv"><p class="k"><b>03</b> Colour</p><h2>Their navy, a cooler paper, one brass.</h2></div>
+      <div class="measure rv">
+        <p>The client's brief asked for deep navy and gold with no red or vivid colour. We keep that and stop it looking like every navy-and-gold law template by using gold as a line and a numeral, never as a fill or a headline, and by putting the weight into type and spacing instead. Paper moves from washi cream to a cooler warm white; cream reads as Japanese paper, this reads as a good letterhead.</p>
+        <ul class="sw">
+          <li><i style="background:#F7F6F2;border-bottom:1px solid var(--line)"></i><div><b>Paper</b><code>#F7F6F2</code><span>page</span></div></li>
+          <li><i style="background:#EEECE6"></i><div><b>Paper 2</b><code>#EEECE6</code><span>statement bands</span></div></li>
+          <li><i style="background:#0F1F3D"></i><div><b>Ink</b><code>#0F1F3D</code><span>headlines, buttons · 15.1:1</span></div></li>
+          <li><i style="background:#0B1830"></i><div><b>Navy</b><code>#0B1830</code><span>consultation band, footer</span></div></li>
+          <li><i style="background:#2A3140"></i><div><b>Text</b><code>#2A3140</code><span>body · 12.1:1</span></div></li>
+          <li><i style="background:#5B6372"></i><div><b>Muted</b><code>#5B6372</code><span>meta, captions · 5.6:1</span></div></li>
+          <li><i style="background:#8A6D33"></i><div><b>Brass</b><code>#8A6D33</code><span>numerals, rules · 4.5:1</span></div></li>
+          <li><i style="background:#C8A85A"></i><div><b>Brass on navy</b><code>#C8A85A</code><span>client's gold · 7.8:1 on navy</span></div></li>
+        </ul>
+        <p style="margin-top:14px"><small>Every text pair passes WCAG AA at body size; brass on Paper 2 is 4.1:1, so it is used there only at 18px and above or as a line.</small></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap split">
+      <div class="sticky rv"><p class="k"><b>04</b> Type</p><h2>One family for three scripts.</h2></div>
+      <div class="measure rv">
+        <p>Shippori Mincho is a Japanese typeface; its Latin carries Japanese proportions, which is part of why the last page felt Japanese before a single image loaded. Playfair and Open Sans are what the client's current AI-built site uses and what every template uses. Neither is the answer.</p>
+        <p>Newsreader is an editorial serif with optical sizes, so it stays crisp at 13px and calm at 74px. IBM Plex Sans, Plex Mono and Plex Sans JP are one family across English, meta and Japanese, so the future Japanese twin of the site will look like the same site, not a translated one.</p>
+        <div class="spec">
+          <div class="s"><p class="k">Display · Newsreader</p><p class="x" style="font-family:var(--serif)">Run the way your head office expects.</p></div>
+          <div class="s"><p class="k">Body · IBM Plex Sans</p><p class="x" style="font-size:19px;line-height:1.5">One accountable team, working in Japanese, on the ground.</p></div>
+          <div class="s"><p class="k">Meta · IBM Plex Mono</p><p class="x" style="font-family:var(--mono);font-size:14px;letter-spacing:.08em;text-transform:uppercase">Service 02 · Legal &amp; compliance · figure pending</p></div>
+          <div class="s"><p class="k">Japanese · IBM Plex Sans JP</p><p class="x" lang="ja" style="font-size:22px;line-height:1.5">日本企業のインド子会社を、日本語で、現地から支えます。</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap split">
+      <div class="sticky rv"><p class="k"><b>05</b> The hero</p><h2>Navy, one annotated photograph, two live clocks.</h2></div>
+      <div class="measure rv">
+        <p>Version one tried a working-hours diagram as the hero graphic. Ankit's verdict was right: correct, but thin. Version two puts a photograph of India in a navy duotone on the right, annotated in brass mono the way a dossier is annotated, with the live Tokyo and India clocks set into its corner. The headline, in paper on navy, still leads.</p>
+        <p>The time-zone fact survives where it earns its place: "five shared working hours a day" runs in the ticker under the hero, and the Contact hero shows the arc from Tokyo to India with both clocks, because that is the page where someone is about to pick up the phone. Tokyo works 09:00 to 18:00; JINGI's published hours are 09:30 to 18:00 IST, which is 13:00 to 21:30 in Tokyo; the overlap is five hours, derived, not invented.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap split">
+      <div class="sticky rv"><p class="k"><b>06</b> Components</p><h2>Rows and rules, not cards.</h2></div>
+      <div class="measure rv">
+        <ul class="list">
+          <li><b>01</b><span>Every section is numbered in brass mono; the number is the ornament.</span></li>
+          <li><b>02</b><span>Lists are hairline rows, not boxed cards. The only boxes are the "What your head office receives" panels and the form, because those are things you get.</span></li>
+          <li><b>03</b><span>Navy appears at most twice per page: the consultation band and the footer. It is a full stop, not a background.</span></li>
+          <li><b>04</b><span>Statement sections (one sentence on Paper 2) carry cross-page links, which keeps the rule that no content lives on two pages.</span></li>
+          <li><b>05</b><span>Buttons are 2px radius, 48px tall. One filled button per view; everything else is a text link with a rule.</span></li>
+          <li><b>06</b><span>Missing figures are marked "figure pending" in a dashed brass tag, visibly, so the client sees what we need instead of a made-up number.</span></li>
+          <li><b>07</b><span>Signature devices, all brass on navy: the annotated duotone frame, the running ticker, the Tokyo-to-India arc in every consultation band, the five-node stage line on the home page, and the four numerals that open the Services page.</span></li>
+          <li><b>08</b><span>The craft pass adds five more. A fine grain over every page at 5 per cent, so the paper reads as printed rather than screened. A meridian field behind the navy bands and the statement: a globe graticule, parallels crossed by curved meridians, at 7 per cent on paper and 16 per cent on navy. A fixed rail at the right edge above 1400px, Tokyo at the top and India at the bottom, with a brass mark that travels with the scroll and inverts over navy; it stays hidden until the hero is behind you, because the hero photograph runs to the edge of the screen. Ghost numerals at 4.5 per cent behind each of the four practices. And the closing mark in the footer, the wordmark rising letter by letter over a drawn horizon while the arc completes behind it.</span></li>
+          <li><b>09</b><span>The home headline sets one word, <em>India</em>, in brass italic. It is the only italic on the site and the only place brass carries a word rather than a rule or a numeral.</span></li>
+          <li><b>10</b><span>The first draft of the meridian field used nested arcs and read unmistakably as seigaiha, the Japanese wave. It was redrawn as a graticule for that reason. Any texture proposed here has to survive the same test: would a Japanese executive read it as decoration from home?</span></li>
+          <li><b>11</b><span>The city is named three times on the whole site and nowhere else: the office address on Contact, the registered address in the privacy notice, and the jurisdiction clause in the terms. It was carried 41 times across five pages before this, almost all of it in furniture that repeats on every page, and Ankit called it out. The second point of every pair is now India: the rail, the arc, the clock labels, the wordmark line. That also reads truer, because IST is a national time zone and the +3:30 offset is a national offset.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap split">
+      <div class="sticky rv"><p class="k"><b>07</b> Motion</p><h2>The words first, then the day draws itself.</h2></div>
+      <div class="measure rv">
+        <p>Entrance: the kicker settles, the headline rises word by word out of a mask, then the lead, the Japanese line and the buttons follow. The photograph wipes open from the top while it eases from 116 per cent to rest, its annotation lines draw and their labels appear, and the clocks fade in last. On scroll: a slow parallax inside the hero frame, every other photograph wiping open once as it arrives, the arc drawing itself, the stage line filling and lighting its five nodes as the statement passes, and small 16px reveals for everything else. Leaving a page: a navy curtain rises in 450 milliseconds, then the next page's own entrance is the reveal. No cursor effects, no petals. Motion here means "in order", which is the brand.</p>
+        <p>The craft pass adds four moments and one rule. Each kicker draws a brass hairline before its heading, and each section head draws a brass segment across the rule above it. The positioning sentence on the home page is lit word by word as it is read, scrubbed to the scroll, rising from 55 per cent opacity to full; 55 is not a taste decision, it is the lowest value that still measures 3.6:1 against Paper 2, which clears AA for text this size before the scroll has touched it. The ghost numerals drift against the scroll. And the footer runs one scrubbed timeline: five letters rise out of their masks, the horizon draws left to right, and the brass arc completes behind them. Every duration now comes from one scale declared at the top of the craft stylesheet, 240ms to 1.6s.</p>
+        <p>Contract, unchanged from the earlier pages: nothing is hidden by CSS. GSAP sets its own start states, so a blocked script, a missing file or a reduced-motion setting leaves every page whole. The verify script tests all three.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap split">
+      <div class="sticky rv"><p class="k"><b>08</b> Still needed</p><h2>From JINGI, before this can ship.</h2></div>
+      <div class="measure rv">
+        <ul class="list">
+          <li><b>01</b><span>Figures for the four cases, even as ranges. The prototype shows the gap on purpose.</span></li>
+          <li><b>02</b><span>Team surnames and photographs; the monograms are stand-ins.</span></li>
+          <li><b>03</b><span>Confirmation of the JETRO, JCCII and IJCC associations and permission to show the marks, plus IJCC's full name.</span></li>
+          <li><b>04</b><span>A form endpoint. The prototype form validates and then opens the visitor's mail app, and says so; it never fakes a "sent".</span></li>
+          <li><b>05</b><span>Native review of every Japanese line, and the decision on the Japanese twin (phase 4 of the content plan).</span></li>
+          <li><b>06</b><span>Counsel's review of the Legal page; it is marked as a draft on the page itself.</span></li>
+          <li><b>07</b><span>Address, phone and hours as shown are taken from the current site; confirm before launch.</span></li>
+          <li><b>08</b><span>Photographs to shoot or commission, all destined for the same duotone so composition matters more than light: the office exterior at Spaze i-Tech Park, the team at their desks, a Gurugram or Manesar industrial corridor, a desk with documents and a hanko-free seal, and a portrait of the director. The two AI-generated city plates in use today are stand-ins.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap split">
+      <div class="sticky rv"><p class="k"><b>09</b> Files</p><h2>How this folder works.</h2></div>
+      <div class="measure rv">
+        <p>Five pages, three stylesheets, one script, vendored GSAP, the logo and the partner marks. The stylesheets stack: <code style="font-family:var(--mono)">site.css</code> holds the tokens and the base components, <code style="font-family:var(--mono)">site-v2.css</code> adds the imagery and the signature devices, and <code style="font-family:var(--mono)">site-v3.css</code> is the craft pass. Each layer is additive, so removing the last one returns the previous look rather than breaking the page. Open <code style="font-family:var(--mono)">index.html</code> from disk; nothing needs a server. Fonts load from Google Fonts and fall back to system faces offline. The design tokens are the first forty lines of <code style="font-family:var(--mono)">assets/site.css</code>. Header, footer and the consultation band are the only blocks that repeat across pages; the build check fails if any other sentence appears twice.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="border-bottom:0">
+    <div class="wrap split">
+      <div class="sticky rv"><p class="k"><b>10</b> The image-rich build</p><h2>Same discipline, more to look at.</h2></div>
+      <div class="measure rv">
+        <p>Ankit generated mockups with Fuji on every hero, cherry blossom on every page and a red sun, and asked for that density with graphics, textures and motion, "not funky". This build takes the density and changes the subject. It lives in <code style="font-family:var(--mono)">proto-v4/</code>, separate from the v3 prototype, and it is never pushed to the collaborator's repository.</p>
+        <ul class="list">
+          <li><b>01</b><span>The turning globe. A wireframe globe in an orthographic projection turns from Tokyo to India as the consultation band scrolls through, and the great-circle route draws between the two cities. No landmasses: borders are a claim, and two points on a graticule already say two places. Without script the flat arc stays; with reduced motion one frame is drawn with both cities in view and the route complete.</span></li>
+          <li><b>02</b><span>Three textures, one each. The globe graticule on navy and on the rule band. A jaali lattice, eight-point stars on a square grid, behind "Why JINGI" and the four practices, masked so it lives in the margins and corners and is never under a paragraph. A buta, the paisley, once, in ink, in the empty half of the home statement. The navy heroes were tried first for the buta; its tail crossed the breadcrumb by 65px, measured, so it moved.</span></li>
+          <li><b>03</b><span>The photographs move from the cold duotone to a four-stop split-tone: navy shadows, slate low-mids, warm tan high-mids, cream highlights. Three stops read as sepia; the fourth keeps the shadows cool.</span></li>
+          <li><b>04</b><span>The home hero leaves in four layers at four speeds: the photograph, the graticule, the headline column and the page itself.</span></li>
+          <li><b>05</b><span>The theme itself changed, on Ankit's correction that a new build means a new palette. Ivory paper and sand, charcoal ink, warm ink for the dark bands, one deep crimson for buttons and the italic word, gold ink for numerals on paper and gold on dark. Bodoni Moda carries the headlines at an optical size matched to the screen, Source Sans 3 the text, Noto Sans JP the Japanese. Heroes are light. Photographs run in colour with a warm grade. Navy now lives only in the logo. The crimson is one token, <code style="font-family:var(--mono)">--accent</code>, because the client's own stylesheet once said no red; if that rule is real, it swaps in a minute.</span></li>
+          <li><b>06</b><span>The home hero became a composed scene, after the mockup Ankit approved: India on the left, Japan on the right, a sun between them and a gold arc joining the two, with two live clocks and the five shared working hours as its only words. It is built from separate plates in one registered box, so the sun rises and the arc draws on load, the plates part under the cursor by depth, and near plates leave faster than far ones on scroll. The red sun, the mountain and the blossom are Ankit's call and each is one element, so any of them comes out by deleting one block. The ticker went; its content moved into the picture and into a strip of the four practices under it, which also replaced the home page's services rows. Item 04 above describes the hero this replaced.</span></li>
+          <li><b>07</b><span>The clean pass. With a picture carrying the first screen, the lattice, the graticule band and the meridians on light ground were noise, so they are off on every page. The dark bands keep the graticule, where it belongs to the globe. Item 02 above describes textures that now show only on dark.</span></li>
+          <li><b>08</b><span>Plates still to come from Ankit, with paste-ready prompts in <code style="font-family:var(--mono)">BRIEF.md</code>: eleven AI stand-ins, all Delhi and Gurugram, warm light, no people, no flags, no Fuji. The office exterior, the director and the team stay real photographs or nothing.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-foot">
+  <div class="wrap"><div class="legal"><span>Internal working document · not for the client as-is</span><span>Void Craft &amp; zxevo_dot</span></div></div>
+</footer>
+
+<script src="assets/gsap.min.js" defer></script>
+<script src="assets/ScrollTrigger.min.js" defer></script>
+<script src="assets/site.js" defer></script>
+</body>
+</html>
