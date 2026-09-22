@@ -1,0 +1,52 @@
+/* JINGI v5 — twenty drawn marks.
+
+   House rules, so twenty additions read as one set rather than twenty
+   decorations: every mark is a 1px hairline, nothing is filled except a
+   single dot where a seal or a sun demands one, and each one is tied to
+   the thing it sits beside. Colour comes from currentColor, so a mark
+   inherits whichever band it lands in.
+
+   Motion contract unchanged: nothing here is hidden in CSS. The stroke
+   lengths that produce a "draw" are set by v5-craft.js, and only once
+   GSAP is present and motion isn't reduced — so with the script blocked
+   every mark is simply already drawn. */
+
+.mf{display:block;overflow:visible;color:var(--brass);flex:none}
+.mf path,.mf circle,.mf line,.mf rect,.mf polyline,.mf ellipse{
+  fill:none;stroke:currentColor;stroke-width:1;
+  vector-effect:non-scaling-stroke;stroke-linecap:round;stroke-linejoin:round}
+.mf .fill{fill:currentColor;stroke:none}
+.mf .hair{opacity:.5}
+.mf .warm{color:var(--gold)}
+/* on a dark band the ink gold disappears; the lighter one is for night */
+.navy .mf,.hero .mf,.site-end .mf,.page-hero.navy .mf{color:var(--gold)}
+
+/* a mark that sits beside a kicker, on the kicker's own baseline */
+.k .mf{display:inline-block;vertical-align:-.28em;margin-right:12px}
+
+/* section rules that span a column */
+.mf-rule{width:100%;height:auto}
+
+/* the practice marks carry a little more presence than the rest */
+.mf-mark{width:44px;height:44px;margin-bottom:20px}
+
+/* a mark parked in the corner of a band, quiet and off the reading line */
+.mf-corner{position:absolute;right:var(--gutter);opacity:.65;pointer-events:none;z-index:1}
+.mf-corner.top{top:clamp(28px,4vw,56px)}
+.mf-corner.bottom{bottom:clamp(28px,4vw,56px)}
+@media (max-width:900px){.mf-corner{display:none}}
+
+/* the two marks that turn rather than draw */
+.mf-spin{animation:mfSpin 64s linear infinite}
+.mf-spin-slow{animation:mfSpin 120s linear infinite reverse}
+@keyframes mfSpin{to{transform:rotate(360deg)}}
+
+/* the radar ring: three circles breathing outward, never fast */
+.mf-ripple circle{transform-origin:50% 50%;animation:mfRipple 4.6s ease-out infinite}
+.mf-ripple circle:nth-child(2){animation-delay:1.5s}
+.mf-ripple circle:nth-child(3){animation-delay:3s}
+@keyframes mfRipple{
+  0%{transform:scale(.28);opacity:0}
+  18%{opacity:.9}
+  100%{transform:scale(1);opacity:0}
+}

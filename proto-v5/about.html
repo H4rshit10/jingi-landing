@@ -10,8 +10,31 @@
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..600&family=Source+Sans+3:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+JP:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/v5.css">
 <link rel="stylesheet" href="assets/v5-pages.css">
+<link rel="stylesheet" href="assets/v5-craft.css">
+<link rel="stylesheet" href="assets/v5-motifs.css">
+<script>
+(function(){try{
+  if(localStorage.getItem('jingi-theme')==='dark'){document.documentElement.setAttribute('data-theme','dark');}
+}catch(e){}
+try{
+  var q=window.matchMedia('(prefers-reduced-motion: reduce)');
+  if(q&&q.matches){sessionStorage.removeItem('jingi-transit');return;}
+  if(sessionStorage.getItem('jingi-transit')){
+    document.documentElement.classList.add('entering');
+    sessionStorage.removeItem('jingi-transit');
+  }
+}catch(e){}})();
+</script>
 </head>
 <body class="inner">
+
+<div class="curtain" id="curtain" aria-hidden="true">
+  <div class="curtain-in">
+    <span class="curtain-sun"></span>
+    <p class="curtain-word"><span class="cl"><span>J</span></span><span class="cl"><span>I</span></span><span class="cl"><span>N</span></span><span class="cl"><span>G</span></span><span class="cl"><span>I</span></span></p>
+    <p class="curtain-note">Corporate Solutions</p>
+  </div>
+</div>
 
 <a class="skip" href="#main">Skip to content</a>
 
@@ -31,6 +54,10 @@
       <a class="roll" href="contact.html" data-t="Contact"><span>Contact</span></a>
       <a class="cta" href="contact.html#form">Request a consultation <svg class="arr" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg></a>
       <span class="lang" aria-label="Language"><span class="on">EN</span><span class="off" lang="ja" title="日本語版は準備中です">日本語</span></span>
+      <button class="theme-btn" type="button" aria-pressed="false" aria-label="Switch to dark theme" title="Toggle theme">
+        <svg class="i-sun" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10" cy="10" r="3.6"/><path d="M10 1.4v2M10 16.6v2M3.5 3.5l1.4 1.4M15.1 15.1l1.4 1.4M1.4 10h2M16.6 10h2M3.5 16.5l1.4-1.4M15.1 4.9l1.4-1.4"/></svg>
+        <svg class="i-moon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M17.2 11.4A7.3 7.3 0 1 1 8.6 2.8a5.7 5.7 0 0 0 8.6 8.6z"/></svg>
+      </button>
     </nav>
   </div>
 </header>
@@ -60,20 +87,30 @@
     </div>
   </section>
 
-  <section class="section" id="name" aria-labelledby="name-h">
+  <section class="section" id="name" aria-labelledby="name-h" style="position:relative">
+    <svg class="mf mf-corner top mf-spin" data-motif="static" width="64" height="64" viewBox="0 0 64 64" aria-hidden="true">
+  <rect x="14" y="14" width="36" height="36"/>
+  <rect x="14" y="14" width="36" height="36" transform="rotate(45 32 32)" class="hair"/>
+  <circle cx="32" cy="32" r="4"/>
+</svg>
     <div class="wrap">
       <div class="head rv">
         <p class="k"><b>01</b> The name</p>
         <h2 id="name-h">Two readings, one standard.</h2>
         <p>JINGI is written two ways in Japanese, and the company is named for both.</p>
       </div>
+      <svg class="mf" data-motif="draw" width="86" height="62" viewBox="0 0 86 62" aria-hidden="true" style="margin-bottom:22px">
+  <line x1="2" y1="8" x2="84" y2="8"/>
+  <path d="M8 12v44"/><path d="M30 12v44"/><path d="M56 12v44"/><path d="M78 12v44"/>
+  <path d="M8 56h22" class="hair"/><path d="M56 56h22" class="hair"/>
+</svg>
       <div class="name-block">
-        <div class="card rv">
+        <div class="card rv beam-rule">
           <div class="glyph" lang="ja" aria-hidden="true">仁義</div>
           <div class="reading">Jin-gi · sincerity, integrity</div>
           <p>The duty you owe to people who have placed their trust in you. It is the standard we hold ourselves to with clients, and with the officials, landlords and candidates we deal with on your behalf.</p>
         </div>
-        <div class="card rv">
+        <div class="card rv beam-rule">
           <div class="glyph" lang="ja" aria-hidden="true">神器</div>
           <div class="reading">Jingi · the instruments of the craft</div>
           <p>The tools that make a thing possible. Read this way, the name is a promise of competence: expertise applied properly, so that what you asked for actually works on the ground.</p>
@@ -83,6 +120,9 @@
   </section>
 
   <section class="message" id="message" aria-labelledby="msg-h">
+    <div class="wrap">
+      <p class="word-fill rv" aria-hidden="true">Distance.</p>
+    </div>
     <div class="wrap split">
       <div class="sticky rv">
         <p class="k"><b>02</b> From the director</p>
@@ -93,6 +133,11 @@
           <p>When a Japanese company looks at India, the opportunity is not the difficult part. The distance is: in language, in custom, in what a Tuesday afternoon actually looks like at the tax office.</p>
           <p>We founded JINGI to close that distance with people rather than advice. Our promise is plain. We speak your language, we do the work ourselves in India, and we are still here in the years after the company is formed.</p>
         </blockquote>
+        <svg class="mf" data-motif="draw" width="54" height="54" viewBox="0 0 54 54" aria-hidden="true" style="margin-top:22px">
+  <circle cx="27" cy="27" r="25"/>
+  <rect x="15" y="15" width="24" height="24" rx="2"/>
+  <line x1="27" y1="15" x2="27" y2="39" class="hair"/><line x1="15" y1="27" x2="39" y2="27" class="hair"/>
+</svg>
         <div class="sig">
           <b>Hisako Sugawara</b>
           <span>Representative Director, JINGI Corporate Solutions</span>
@@ -108,6 +153,9 @@
         <p class="k"><b>03</b> The team</p>
         <h2 id="team-h">Four people, four functions.</h2>
         <p>Each engagement has one bilingual point of contact and one named specialist per function. These are they.</p>
+        <svg class="mf" data-motif="stagger" width="34" height="26" viewBox="0 0 34 26" aria-hidden="true" style="margin-top:20px">
+  <path d="M3 3l12 10L3 23"/><path d="M17 3l12 10-12 10" class="hair"/>
+</svg>
       </div>
       <ul class="team">
         <li class="rv"><div class="mono" aria-hidden="true">HS</div><h3>Hisako Sugawara</h3><p class="role">Representative Director</p><p>Your bilingual counterpart: the person who understands both the head-office question and the answer from the ground.</p></li>
@@ -126,9 +174,9 @@
         <p>The Japan–India business bodies JINGI works alongside, and the specialist network behind each engagement: lawyers, chartered accountants and site consultants in each region we operate in.</p>
       </div>
       <ul class="partners">
-        <li class="rv"><img src="assets/partner-jetro.png" alt="JETRO"><b>JETRO</b><span>Japan External Trade Organization</span></li>
-        <li class="rv"><img src="assets/partner-jccii.jpg" alt="JCCII"><b>JCCII</b><span>Japan Chamber of Commerce and Industry in India</span></li>
-        <li class="rv"><img src="assets/partner-ijcc.jpg" alt="IJCC"><b>IJCC</b><span>Indo-Japan chamber network</span></li>
+        <li class="rv tilt-card"><div class="tilt-in"><img src="assets/partner-jetro.png" alt="JETRO"><b>JETRO</b><span>Japan External Trade Organization</span></div></li>
+        <li class="rv tilt-card"><div class="tilt-in"><img src="assets/partner-jccii.jpg" alt="JCCII"><b>JCCII</b><span>Japan Chamber of Commerce and Industry in India</span></div></li>
+        <li class="rv tilt-card"><div class="tilt-in"><img src="assets/partner-ijcc.jpg" alt="IJCC"><b>IJCC</b><span>Indo-Japan chamber network</span></div></li>
       </ul>
     </div>
   </section>
@@ -137,6 +185,11 @@
     <div class="wrap where">
       <div class="rv">
         <p class="k"><b>05</b> Where</p>
+        <svg class="mf mf-rule" data-motif="draw" width="180" height="72" viewBox="0 0 180 72" aria-hidden="true" style="max-width:180px;margin-bottom:24px">
+  <path d="M8 58c26 0 38-42 62-42s36 42 62 42"/>
+  <path d="M58 30c8 6 14 6 20 2s12-4 20 2" class="hair"/>
+  <line x1="0" y1="64" x2="180" y2="64" class="hair"/>
+</svg>
         <h2 id="where-h" style="margin-top:14px">Close to the manufacturing corridors where Japanese companies in north India operate.</h2>
         <a class="tlink" href="contact.html" style="margin-top:28px">Address, hours and directions <svg class="arr" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 8h11M9 4l4 4-4 4"/></svg></a>
       </div>
@@ -147,7 +200,7 @@
     </div>
   </section>
 
-  <section class="navy consult" data-expand aria-labelledby="cta-h">
+  <section class="band navy consult" data-expand aria-labelledby="cta-h">
     <div class="wrap inner">
       <div class="rv">
         <svg class="arc" viewBox="0 0 600 150" aria-hidden="true">
@@ -185,10 +238,18 @@
     <span><a href="legal.html#privacy">Privacy</a> · <a href="legal.html#terms">Terms</a></span>
     <span>Design: Void Craft &amp; zxevo_dot</span>
   </div>
+
+  <!-- the name rises over a horizon, and the sun rises with it -->
+  <div class="foot-mark" aria-hidden="true">
+    <span class="foot-sun" id="foot-sun"></span>
+    <p class="foot-word" id="foot-word"><span class="fl"><span>J</span></span><span class="fl"><span>I</span></span><span class="fl"><span>N</span></span><span class="fl"><span>G</span></span><span class="fl"><span>I</span></span></p>
+    <span class="foot-horizon" id="foot-horizon"></span>
+  </div>
 </footer>
 
 <script src="assets/gsap.min.js" defer></script>
 <script src="assets/ScrollTrigger.min.js" defer></script>
 <script src="assets/v5.js" defer></script>
+<script src="assets/v5-craft.js" defer></script>
 </body>
 </html>

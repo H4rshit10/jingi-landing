@@ -1,0 +1,265 @@
+/* JINGI v5 — the craft layer: everything requested in chat, built in v5's
+   own idiom (gold/navy, EXPO easing, the honest empty "plate") rather than
+   ported wholesale from proto/'s different token names and design language.
+
+   Contract unchanged: nothing here hides content. Animated start states are
+   set by v5-craft.js, only once GSAP has loaded and motion isn't reduced. */
+
+/* ═══ page transition: the curtain ═══════════════════════════════════════
+   Leaving raises a navy curtain with the sun and the wordmark; the next
+   page loads already covered and lifts the same curtain via a CSS
+   animation — never script — so a blocked script can't strand anyone. */
+
+.curtain{position:fixed;inset:0;z-index:200;background:var(--navy);
+  pointer-events:none;visibility:hidden;transform:translateY(100%);
+  display:grid;place-items:center;overflow:hidden}
+.curtain::before{content:"";position:absolute;left:0;right:0;top:0;height:1px;
+  background:var(--gold);opacity:.55}
+.curtain.go{visibility:visible;pointer-events:auto}
+.curtain-in{position:relative;display:grid;justify-items:center;gap:clamp(18px,2.4vw,30px);
+  padding-inline:var(--gutter)}
+.curtain-sun{width:clamp(56px,7vw,92px);aspect-ratio:1;border-radius:50%;
+  background:var(--red);display:block}
+.curtain-word{margin:0;font-family:var(--serif);font-weight:400;
+  font-size:clamp(2.1rem,6vw,4rem);letter-spacing:.14em;color:var(--on-navy);
+  display:flex;gap:.06em;white-space:nowrap}
+.curtain-word .cl{display:block;overflow:hidden;padding-bottom:.14em}
+.curtain-word .cl>span{display:block}
+.curtain-note{margin:0;font:400 11px/1 var(--mono);letter-spacing:.22em;
+  text-transform:uppercase;color:var(--on-navy-muted)}
+html.entering .curtain{visibility:visible;transform:translateY(0);
+  animation:curtainLift 1.5s var(--ease) .24s forwards}
+html.entering .curtain-in{animation:curtainDrift 1.5s var(--ease) .24s forwards}
+@keyframes curtainLift{to{transform:translateY(-100%);visibility:hidden}}
+@keyframes curtainDrift{to{transform:translateY(-26%);opacity:0}}
+
+/* ═══ the footer mark: the wordmark rises over a horizon, sun with it ═════
+   Ported from proto/'s single-page build; v5's own tokens throughout. */
+
+.site-end{position:relative;overflow:hidden}
+.foot-mark{position:relative;z-index:0;margin-top:clamp(30px,3.2vw,48px);
+  font-size:clamp(3.6rem,14vw,12.5rem);overflow:hidden;isolation:isolate}
+.foot-sun{position:absolute;left:50%;bottom:-.18em;width:1.15em;aspect-ratio:1;
+  border-radius:50%;background:var(--red);transform:translate(-50%,0);
+  z-index:0;opacity:.92;filter:blur(.4px)}
+.foot-word{position:relative;z-index:1;display:flex;justify-content:center;
+  gap:clamp(2px,.5vw,8px);margin:0;padding:0;white-space:nowrap;
+  font-family:var(--serif);font-weight:400;font-size:1em;line-height:1.02;
+  letter-spacing:-.02em;color:var(--on-navy);user-select:none}
+.fl{display:block;overflow:hidden;padding-bottom:.2em}
+.fl>span{display:block;will-change:transform}
+.foot-horizon{position:absolute;left:0;right:0;bottom:0;height:1px;
+  background:var(--gold);opacity:.5;z-index:2;transform-origin:left}
+
+/* ═══ theme toggle: paper bands go dark; the already-navy bands hold ══════
+   v5 alternates paper/navy by design, so "dark mode" here only has to
+   redefine the paper tokens - the navy bands already ARE the dark mode. */
+
+.theme-btn{position:relative;display:inline-flex;align-items:center;justify-content:center;
+  width:38px;height:38px;min-height:0;border:1px solid var(--line-navy);border-radius:2px;
+  color:var(--on-navy-muted);background:transparent;flex:none;
+  transition:border-color .3s var(--ease),color .3s var(--ease)}
+.theme-btn:hover{border-color:var(--gold);color:var(--gold)}
+.theme-btn svg{position:absolute;width:18px;height:18px;
+  transition:opacity .3s var(--ease),transform .3s var(--ease)}
+.theme-btn .i-moon{opacity:0;transform:rotate(-40deg) scale(.6)}
+:root[data-theme="dark"] .theme-btn .i-sun{opacity:0;transform:rotate(40deg) scale(.6)}
+:root[data-theme="dark"] .theme-btn .i-moon{opacity:1;transform:none}
+::view-transition-old(root),::view-transition-new(root){animation:none;mix-blend-mode:normal}
+:root[data-theme="dark"]{
+  --paper:#171B26; --paper-2:#1E2330; --line:rgba(241,236,224,.14); --line-2:rgba(241,236,224,.26);
+  --ink:#F1ECE0; --text:#C7CBDA; --muted:#9AA0B4;
+}
+:root[data-theme="dark"] .plate.light{background:linear-gradient(160deg,#232838,#1B1F2C);box-shadow:inset 0 0 0 1px var(--line-2)}
+:root[data-theme="dark"] .plate.light .plate-cap{color:var(--muted)}
+:root[data-theme="dark"] .form{background:var(--paper-2)}
+@media (max-width:900px){.masthead.open .theme-btn{margin-top:16px;align-self:flex-start}}
+
+/* ═══ traveling light (BorderBeam) — along the name-cards' top rule ═══════
+   Matches v5's own single-rule motif (.rows li::before) rather than a new
+   boxed-card style. */
+
+.card.beam-rule{position:relative}
+.card.beam-rule::before{content:"";position:absolute;top:-1px;left:0;width:72px;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  animation:beamTravel 4.4s ease-in-out infinite;pointer-events:none}
+.card.beam-rule:nth-of-type(2)::before{animation-delay:1.6s}
+@keyframes beamTravel{
+  0%{transform:translateX(-72px);opacity:0} 10%{opacity:1}
+  50%{transform:translateX(calc(100% + 72px));opacity:1} 60%,100%{opacity:0}
+}
+
+/* ═══ rotating shine (ShineBorder) — the consultation form ════════════════ */
+
+.form.glow{position:relative}
+.form.glow::before{content:"";position:absolute;inset:-1px;border-radius:3px;padding:1px;
+  background:conic-gradient(from var(--shine-angle,0deg),
+    transparent 0deg,var(--gold) 55deg,transparent 130deg,
+    var(--navy-3) 210deg,transparent 290deg,transparent 360deg);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+  animation:shineSpin 6s linear infinite;pointer-events:none;z-index:2}
+@property --shine-angle{syntax:'<angle>';inherits:false;initial-value:0deg}
+@keyframes shineSpin{to{--shine-angle:360deg}}
+main .form{position:relative}
+
+/* ═══ washi/gold shine sweep (RainbowButton) — the one highest-intent CTA ═ */
+
+.btn.btn-shine{position:relative;overflow:hidden}
+.btn.btn-shine::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(115deg,transparent 25%,rgba(241,236,224,.45) 48%,transparent 72%);
+  transform:translateX(-130%);animation:shineSweep 3.6s ease-in-out infinite;pointer-events:none}
+@keyframes shineSweep{0%,55%{transform:translateX(-130%)}100%{transform:translateX(130%)}}
+
+/* ═══ aurora word — v5 already marks emphasis with <em>; this animates it ═
+   Stops chosen to stay light against navy, paper AND dark-paper alike. */
+
+h1 em{
+  font-style:italic;background:linear-gradient(90deg,var(--gold),var(--on-navy) 45%,var(--red) 65%,var(--gold));
+  background-size:300% 100%;-webkit-background-clip:text;background-clip:text;
+  color:transparent;-webkit-text-fill-color:transparent;animation:auroraShift 8s ease-in-out infinite}
+@keyframes auroraShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+
+/* ═══ gradient display word (VideoText, adapted) ══════════════════════════
+   v5's photographs are honest empty plates until the real ones exist, so
+   this fills the word with the gold gradient rather than a photo that
+   doesn't exist yet — same ceremony, none of the fabrication. */
+
+.word-fill{font-family:var(--serif);font-weight:400;font-style:italic;
+  font-size:clamp(3rem,8vw,6.4rem);line-height:.92;margin:0 0 clamp(18px,2.6vw,30px);
+  /* every stop stays mid-to-dark against paper and light-to-mid against
+     dark paper - no stop is allowed to match its own background, the same
+     mistake the aurora word's first draft made against the navy hero */
+  background:linear-gradient(120deg,var(--gold-ink),var(--gold) 40%,var(--ink) 70%,var(--gold-ink));
+  background-size:250% 250%;-webkit-background-clip:text;background-clip:text;
+  color:transparent;-webkit-text-fill-color:transparent;animation:auroraShift 10s ease-in-out infinite;
+  user-select:none}
+/* --ink itself flips light/dark with the theme (see the token block below),
+   so this gradient self-corrects without a separate dark-mode override */
+
+/* ═══ scroll-expand — the empty plate, grown full-bleed and held ═════════
+   No photo invented: same honest grid+corner-tick plate the hero already
+   uses, just given the react-bits ScrollExpand's grow-and-hold motion.
+   CSS default is the FINISHED, full-bleed state; JS only pulls it small at
+   the very start of the scroll, so a blocked script shows a complete
+   section, never a half-built floating rectangle. */
+
+.expand{position:relative;height:200vh}
+.expand-pin{position:sticky;top:0;height:100vh;display:flex;align-items:center;
+  justify-content:center;overflow:hidden}
+.expand .plate{width:100%;height:100vh;border-radius:0}
+.expand-cap-big{position:absolute;left:0;right:0;bottom:0;z-index:3;
+  padding:clamp(28px,4vw,64px) var(--gutter) clamp(40px,5vw,72px);max-width:640px;
+  opacity:1;transform:none}
+.expand-cap-big .k{margin-bottom:14px;color:var(--on-navy-muted)}
+.expand-cap-big h2{color:var(--on-navy)}
+.expand-cap-big p{color:var(--on-navy-muted);margin-top:14px;max-width:52ch;font-size:15.5px}
+@media (max-width:640px){.expand{height:150vh}.expand-pin{height:80vh}.expand .plate{height:80vh}}
+
+/* ═══ tilted card (react-bits) — the partner marks, rebuilt on GSAP ═══════
+   Framer Motion's spring is replaced with gsap.quickTo, same as v5's own
+   [data-magnet] buttons already do; no new dependency. */
+
+.tilt-card{perspective:800px}
+.tilt-card .tilt-in{position:relative;transform-style:preserve-3d;border-radius:4px;
+  display:grid;gap:14px;transition:box-shadow .3s var(--ease)}
+.tilt-card:hover .tilt-in{box-shadow:0 18px 40px -18px rgba(15,31,61,.35)}
+.tilt-card img{will-change:transform;transform:translateZ(0)}
+
+/* ═══ the office map ═══════════════════════════════════════════════════ */
+
+.office-map{position:relative;margin-top:22px;border-radius:2px;overflow:hidden;
+  border:1px solid var(--line);isolation:isolate}
+.office-map .leaflet-container{height:280px;width:100%;font-family:var(--sans);background:var(--paper-2)}
+.office-map .leaflet-popup-content-wrapper{border-radius:2px;font-family:var(--sans)}
+.office-map .leaflet-popup-content{font-size:13.5px;line-height:1.5;margin:10px 14px}
+.office-map .leaflet-popup-content b{font-family:var(--serif);font-size:15px;display:block;margin-bottom:3px;color:var(--ink)}
+.office-map-note{margin-top:8px;font:400 11px/1.6 var(--mono);letter-spacing:.04em;color:var(--muted)}
+
+/* ═══ table-of-contents scroll-spy (legal.html) ═══════════════════════════ */
+
+.toc a.active{color:var(--ink);border-color:var(--gold);font-weight:600}
+
+/* ═══ header: a larger logo, and every offset that depended on 76px ══════
+   The bar height was hardcoded in five places across two files. Making
+   it a token means the logo can grow without the hero, the page heroes,
+   the mobile sheet and the sticky sidebar all drifting out of register. */
+
+:root{--head-h:clamp(84px,6.4vw,98px)}
+.bar{height:var(--head-h)}
+.logo img{height:clamp(56px,4.6vw,70px)}
+.hero{padding-top:calc(var(--head-h) + 40px)}
+main .page-hero,main .page-hero.navy{padding-top:calc(var(--head-h) + var(--sp-5))}
+.svc-side{top:calc(var(--head-h) + 34px)}
+main .legal-doc h2,main .legal-doc h3,#form,#process{scroll-margin-top:calc(var(--head-h) + 14px)}
+@media (max-width:900px){
+  .nav{top:var(--head-h)}
+}
+
+/* ═══ bug fixes ════════════════════════════════════════════════════════
+   Two real defects reported after the craft pass, both pre-existing in
+   v5's own markup/CSS, not introduced by anything above. */
+
+/* about.html and services.html's closing CTA used class="navy consult",
+   but the rule that paints a navy background requires .band.navy
+   together - index.html's equivalent sections already carry .band
+   correctly. Without it the section stayed transparent, leaving the
+   light on-navy heading sitting on whatever was behind it: unreadable.
+   Fixed at the markup (added the missing .band class); this comment
+   documents why, since the fix itself isn't visible in this file. */
+
+/* the footer's rising wordmark needs real room below it, the small mark
+   at the top needs its own room above the columns, and the columns
+   themselves read as an afterthought squeezed together - all of it
+   sized and spaced for a plain text footer, not one with a wordmark
+   the height of a headline underneath. Second pass: bigger throughout,
+   not just nudged. */
+.site-end{padding-top:clamp(72px,8vw,112px);padding-bottom:clamp(64px,8vw,120px);font-size:16.5px}
+.foot-grid{gap:clamp(40px,5vw,80px);grid-template-columns:minmax(0,2fr) repeat(3,minmax(0,1fr))}
+.foot-brand img{height:88px;margin-bottom:26px}
+.foot-brand p{font-size:16.5px;line-height:1.55}
+.site-end h4{font-size:13px;letter-spacing:.24em;margin-bottom:24px}
+.site-end li{margin-bottom:16px;font-size:16.5px}
+.site-end li:last-child{margin-bottom:0}
+.foot-legal{font-size:14.5px;margin-top:72px;padding-top:28px}
+.foot-clocks{font-size:12.5px;gap:32px}
+.foot-clocks b{margin-left:10px}
+/* the rising mark's own room, now proportionate to the padding above it */
+.foot-mark{margin-top:clamp(48px,5vw,72px)}
+
+/* ═══ the sun, centred on the wordmark ═══════════════════════════════════
+   Measured rather than guessed: at the rendered size the wordmark's cap
+   centre sat 0.448em ABOVE the sun's centre, so the disc read as a
+   sunrise behind the top of the letters instead of a mark around them.
+   Raising the sun by that much would clip its top against the mask, so
+   the mask gains 0.22em of headroom first (the caps need 0.1975em).
+   Both numbers come from the glyph metrics, so they hold at any size. */
+.foot-mark{padding-top:.22em}
+.foot-sun{bottom:.268em}
+
+/* ═══ team cards: full borders, a glow ring on hover, and a lift ══════════
+   These were only ever a single top rule - no box, no hover state, no
+   motion - the one place on the page with neither. */
+main .team li{
+  border:1px solid var(--line);border-radius:2px;padding:26px 22px 22px;
+  position:relative;isolation:isolate;overflow:hidden;
+  transition:border-color .4s var(--ease),transform .4s var(--ease),box-shadow .4s var(--ease)}
+main .team li:hover,main .team li:focus-within{
+  border-color:transparent;transform:translateY(-5px);
+  box-shadow:0 22px 44px -22px rgba(15,31,61,.32)}
+main .team li::after{content:"";position:absolute;inset:0;border-radius:2px;padding:1px;
+  background:conic-gradient(from var(--shine-angle,0deg),
+    transparent 0deg,var(--gold) 70deg,transparent 160deg,
+    var(--gold-ink) 260deg,transparent 340deg,transparent 360deg);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+  opacity:0;transition:opacity .4s var(--ease);pointer-events:none;z-index:1}
+main .team li:hover::after,main .team li:focus-within::after{opacity:1;animation:shineSpin 4s linear infinite}
+main .team .mono{transition:transform .4s var(--ease),background .4s var(--ease)}
+main .team li:hover .mono{transform:scale(1.06);background:var(--gold-ink)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important}
+  html.entering .curtain,html.entering .curtain-in{animation:none}
+  html.entering .curtain{visibility:hidden;transform:translateY(100%)}
+}
